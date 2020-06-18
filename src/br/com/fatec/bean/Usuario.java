@@ -6,11 +6,11 @@ public class Usuario{
     private String nome;
     private String login;
     private String senha;
-    private int genero;
+    private String genero;
     private String cep;
     private int idade;
     
-    public Usuario (int id, String nome,String login, String senha, String status, String tipo, int genero, String cep, int idade) {
+    public Usuario (int id, String nome,String login, String senha, String status, String tipo, String genero, String cep, int idade) {
         this.id = id;
         this.nome = nome;
         this.login = login;
@@ -18,6 +18,9 @@ public class Usuario{
         this.genero = genero;
         this.cep = cep;
         this.idade = idade;
+    }
+    
+    public Usuario() {
     }
     
     public int GetId() {
@@ -40,11 +43,15 @@ public class Usuario{
     	return this.login;
     }
     
-    public int GetGenero() {
+    public void SetLogin(String login) {
+    	this.login = login;
+    }
+    
+    public String GetGenero() {
     	return this.genero;
     }
     
-    public void SetGenero(int genero) {
+    public void SetGenero(String genero) {
     	this.genero = genero;
     }
     
@@ -63,4 +70,12 @@ public class Usuario{
     public void SetIdade(int idade) {
     	this.idade = idade;
     }
+
+	public String GetSenha() {
+		return senha;
+	}
+
+	public void SetSenha(String senha) {
+		this.senha = senha;
+	}
 }

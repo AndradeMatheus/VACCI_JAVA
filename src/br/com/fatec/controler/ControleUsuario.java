@@ -6,6 +6,7 @@
 package br.com.fatec.controler;
 
 import br.com.fatec.bean.Usuario;
+import java.lang.Boolean;
 import br.com.fatec.db.DaoUsuario;
 import java.sql.SQLException;
 import java.util.List;
@@ -34,16 +35,15 @@ public class ControleUsuario {
         return usu;
     }
 
-    public Usuario buscarUsuario(Usuario usu) throws SQLException, ClassNotFoundException {
+    public Usuario BuscarUsuarioPorId(Usuario user) throws SQLException, ClassNotFoundException {
         DaoUsuario usuDao = new DaoUsuario();
-        usu = usuDao.busca(usu);
-        return usu;
+        user = usuDao.BuscaPorId(user.GetId());
+        return user;
     }
 
-    public Usuario alterarUsuario(Usuario usu) throws SQLException, ClassNotFoundException {
-        DaoUsuario usuDao = new DaoUsuario();
-        usu = usuDao.altera(usu);
-        return usu;
+    public Boolean AlterarUsuario(Usuario userModificado, Usuario user) throws SQLException, ClassNotFoundException {
+        DaoUsuario userDao = new DaoUsuario();
+        return userDao.Alterar(userModificado, user);
     }
     
     public List<Usuario> listarUsuario(Usuario usu) throws SQLException, ClassNotFoundException {

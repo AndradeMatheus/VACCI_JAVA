@@ -1,20 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- 
- create database xxx;
-
- create table xxx.usuarios (
-  id BIGINT NOT NULL AUTO_INCREMENT,
-  nome VARCHAR(255),
-  login VARCHAR(255),
-  senha VARCHAR(255),
-  status VARCHAR(255),
-  tipo VARCHAR(255),
-  primary key (id));
-
-*/
 package br.com.fatec.db;
 
 import br.com.fatec.util.ConexaoDB;
@@ -27,10 +10,6 @@ import java.util.List;
 import br.com.fatec.bean.Usuario;
 import java.sql.Statement;
 
-/**
- *
- * @author ProfAlexandre
- */
 public class DaoUsuario {
 
     private final Connection c;
@@ -40,44 +19,46 @@ public class DaoUsuario {
     }
     
     
-    public Usuario busca(Usuario usu) throws SQLException{
-        String sql = "select * from usuarios WHERE id = ?";
+    public Usuario BuscaPorId(int id) throws SQLException{
+        String sql = "select * from usuario WHERE id = ?";
         
         PreparedStatement stmt = this.c.prepareStatement(sql);
-            // seta os valores
-            stmt.setInt(1,usu.getId());
-            // executa
+            stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             
+            Usuario ret = new Usuario();
             while (rs.next()) {
-                // criando o objeto Usuario
-                usu.setId(rs.getInt(1));
-                usu.setNome(rs.getString(2));
-                usu.setLogin(rs.getString(3));
-                usu.setSenha(rs.getString(4));
-                usu.setStatus(rs.getString(5));
-                usu.setTipo(rs.getString(6));
-                // adiciona o usu à lista de usus
+                ret.SetId(rs.getInt(1));
+                ret.SetNome(rs.getString(2));
+                ret.SetLogin(rs.getString(3));
+                ret.SetGenero(rs.getString(6));
+                ret.SetCep(rs.getString(7));
+                ret.SetIdade(rs.getInt(8));
             }
-        return usu;
+            
+        return ret;
     }
     
-    public Usuario altera(Usuario usu) throws SQLException{
-        String sql = "UPDATE usuarios SET nome = ?, login = ?, senha = ?, status = ?, tipo = ? WHERE id = ?";
-        // prepared statement para inserção
+    public Boolean Alterar(Usuario userModificado, Usuario user) throws SQLException{
+        String sql = "UPDATE usuario SET nome = ?, login = ?, senha = ?, genero = ?, cep = ? WHERE id = ?";
+        
         PreparedStatement stmt = c.prepareStatement(sql);
-        // seta os valores
-        stmt.setString(1,usu.getNome());
-        stmt.setString(2,usu.getLogin());
-        stmt.setString(3,usu.getSenha());
-        stmt.setString(4,usu.getStatus());
-        stmt.setString(5,usu.getTipo());
-        stmt.setInt(6,usu.getId());
+        
+        stmt.setString(1, userModificado.GetNome() == null ? user.GetNome() : userModificado.GetNome());
+        stmt.setString(2, userModificado.GetLogin() == null ? user.GetNome() : userModificado.GetNome());
+        stmt.setString(3, userModificado.GetSenha() == null ? user.GetSenha() : userModificado.GetSenha());
+        stmt.setString(4, userModificado.GetGenero() == null ? user.GetGenero() : userModificado.GetGenero());
+        stmt.setString(5, userModificado.GetCep() == null ? user.GetCep() : userModificado.GetCep());
+        stmt.setInt(6, user.GetId());
 
-        // executa
-        stmt.execute();
-        stmt.close();
-        return usu;
+        try {
+            stmt.execute();
+            stmt.close();
+        }catch(Exception ex) {
+        	return false;
+        }
+        
+        return true;
     }
 
     public Usuario exclui(Usuario usu) throws SQLException{
