@@ -6,16 +6,16 @@ public class Usuario{
     private String nome;
     private String login;
     private String senha;
-    private String genero;
+    private Genero genero;
     private String cep;
     private int idade;
     
-    public Usuario (int id, String nome,String login, String senha, String status, String tipo, String genero, String cep, int idade) {
+    public Usuario (int id, String nome,String login, String senha, int tipoGenero, String descricaoGenero, String cep, int idade) {
         this.id = id;
         this.nome = nome;
         this.login = login;
         this.senha = senha;
-        this.genero = genero;
+        this.genero = new Genero(tipoGenero, descricaoGenero);
         this.cep = cep;
         this.idade = idade;
     }
@@ -47,12 +47,25 @@ public class Usuario{
     	this.login = login;
     }
     
-    public String GetGenero() {
-    	return this.genero;
+    public void SetGenero(int tipo, String descricao) {
+    	this.genero.tipo = tipo;
+    	this.genero.descricao = descricao;
     }
     
-    public void SetGenero(String genero) {
-    	this.genero = genero;
+    public int GetGeneroTipo() {
+    	return this.genero.tipo;
+    }
+    
+    public void SetGeneroTipo(int tipo) {
+    	this.genero.tipo = tipo;
+    }
+    
+    public String GetGeneroDescricao() {
+    	return this.genero.descricao;
+    }
+    
+    public void SetGeneroDescricao(String descricao) {
+    	this.genero.descricao = descricao;
     }
     
     public String GetCep() {

@@ -16,49 +16,39 @@ import java.util.List;
  * @author ProfAlexandre
  */
 public class ControleUsuario {
-    
-    public Usuario validaUsuario(Usuario usu) throws SQLException, ClassNotFoundException {
-        DaoUsuario usuDao = new DaoUsuario();
-        usu = usuDao.validaLogin(usu);
-        return usu;
-    }
-    
-    public Usuario inserirUsuario(Usuario usu) throws SQLException, ClassNotFoundException {
-        DaoUsuario usuDao = new DaoUsuario();
-        usu = usuDao.inseri(usu);
-        return usu;
-    }
-
-    public Usuario excluirUsuario(Usuario usu) throws SQLException, ClassNotFoundException {
-        DaoUsuario usuDao = new DaoUsuario();
-        usu = usuDao.exclui(usu);
-        return usu;
-    }
-
+	
     public Usuario BuscarUsuarioPorId(Usuario user) throws SQLException, ClassNotFoundException {
         DaoUsuario usuDao = new DaoUsuario();
         user = usuDao.BuscaPorId(user.GetId());
         return user;
     }
-
+    
     public Boolean AlterarUsuario(Usuario userModificado, Usuario user) throws SQLException, ClassNotFoundException {
         DaoUsuario userDao = new DaoUsuario();
         return userDao.Alterar(userModificado, user);
     }
-    
-    public List<Usuario> listarUsuario(Usuario usu) throws SQLException, ClassNotFoundException {
-        List<Usuario>  usus ;
+	
+    public Boolean ExcluirUsuario(Usuario user) throws SQLException, ClassNotFoundException {
         DaoUsuario usuDao = new DaoUsuario();
-        usus = usuDao.lista(usu);
-        return usus;
+        Boolean valida = usuDao.Excluir(user);
+        return valida;
     }
-
-    public List<Usuario> listarTodosUsuario() throws SQLException, ClassNotFoundException {
-        List<Usuario>  usus ;
-        DaoUsuario usuDao = new DaoUsuario();
-        usus = usuDao.listaTodos();
-        return usus;
-    }
-
     
+    public Boolean ValidaLogin(String login, String senha) throws SQLException, ClassNotFoundException {
+        DaoUsuario usuDao = new DaoUsuario();
+        Boolean valida = usuDao.ValidaLogin(login, senha);
+        return valida;
+    }
+    
+    public List<Usuario> ListarUsuarios() throws SQLException, ClassNotFoundException {
+        DaoUsuario usuDao = new DaoUsuario();
+        List<Usuario> users = usuDao.Listar();
+        return users;
+    }
+    
+    public Boolean InserirUsuario(Usuario user) throws SQLException, ClassNotFoundException {
+        DaoUsuario usuDao = new DaoUsuario();
+        Boolean valida = usuDao.Inserir(user);
+        return valida;
+    }    
 }

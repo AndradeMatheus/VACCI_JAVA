@@ -1,13 +1,13 @@
 package br.com.fatec.bean;
 
-public enum TipoCarteira {
+public enum ETipoCarteira {
 	CRIANCA(1),
 	ADOLESCENTE(2),
 	ADULTO(3);
 	
 	public final int tipoCarteiraCode;
 	
-	TipoCarteira (int tipoCarteiraCode) {
+	ETipoCarteira (int tipoCarteiraCode) {
 		this.tipoCarteiraCode = tipoCarteiraCode;
 	}
 }

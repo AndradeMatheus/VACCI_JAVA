@@ -20,7 +20,9 @@ public class DaoUsuario {
     
     
     public Usuario BuscaPorId(int id) throws SQLException{
-        String sql = "select * from usuario WHERE id = ?";
+        String sql = "SELECT u.id_usuario, u.nm_usuario, u.nm_login, u.nm_senha, "
+        		+ "dg.nm_genero, u.nm_cep, u.id_idade FROM usuario u JOIN dom_genero dg "
+        		+ "ON u.tp_genero = dg.tp_genero WHERE id_usuario = ?";
         
         PreparedStatement stmt = this.c.prepareStatement(sql);
             stmt.setInt(1, id);
@@ -31,158 +33,130 @@ public class DaoUsuario {
                 ret.SetId(rs.getInt(1));
                 ret.SetNome(rs.getString(2));
                 ret.SetLogin(rs.getString(3));
-                ret.SetGenero(rs.getString(6));
-                ret.SetCep(rs.getString(7));
-                ret.SetIdade(rs.getInt(8));
+                ret.SetSenha(rs.getString(4));
+                ret.SetGeneroDescricao(rs.getString(5));
+                ret.SetCep(rs.getString(6));
+                ret.SetIdade(rs.getInt(7));
             }
+            
+            stmt.close();
+            c.close();
             
         return ret;
     }
     
     public Boolean Alterar(Usuario userModificado, Usuario user) throws SQLException{
-        String sql = "UPDATE usuario SET nome = ?, login = ?, senha = ?, genero = ?, cep = ? WHERE id = ?";
+        String sql = "UPDATE usuario SET nm_usuario = ?, nm_login = ?, "
+        		+ "nm_senha = ?, nm_genero = ?, nm_cep = ?, id_dade = ?, WHERE id = ?";
         
         PreparedStatement stmt = c.prepareStatement(sql);
         
         stmt.setString(1, userModificado.GetNome() == null ? user.GetNome() : userModificado.GetNome());
         stmt.setString(2, userModificado.GetLogin() == null ? user.GetNome() : userModificado.GetNome());
         stmt.setString(3, userModificado.GetSenha() == null ? user.GetSenha() : userModificado.GetSenha());
-        stmt.setString(4, userModificado.GetGenero() == null ? user.GetGenero() : userModificado.GetGenero());
+        stmt.setInt(4, userModificado.GetGeneroTipo() == 0 ? user.GetGeneroTipo() : userModificado.GetGeneroTipo());
         stmt.setString(5, userModificado.GetCep() == null ? user.GetCep() : userModificado.GetCep());
-        stmt.setInt(6, user.GetId());
+        stmt.setInt(6, userModificado.GetIdade() == 0 ? user.GetIdade() : userModificado.GetIdade());
+        stmt.setInt(7, user.GetId());
 
         try {
             stmt.execute();
-            stmt.close();
         }catch(Exception ex) {
         	return false;
+        }finally {
+            stmt.close();
+            c.close();
         }
         
         return true;
     }
 
-    public Usuario exclui(Usuario usu) throws SQLException{
-        String sql = "delete from usuarios WHERE id = ?";
-        // prepared statement para inserção
+    public Boolean Excluir(Usuario user) throws SQLException{
+        String sql = "DELETE FROM usuario WHERE id_usuario = ?";
+
         PreparedStatement stmt = c.prepareStatement(sql);
-        // seta os valores
-        stmt.setInt(1,usu.getId());
-        // executa
-        stmt.execute();
-        stmt.close();
-        c.close();
-        return usu;
+
+        stmt.setInt(1, user.GetId());
+        
+        try {
+        	stmt.execute();	
+        }catch(Exception ex) {
+        	return false;
+        }finally {
+            stmt.close();
+            c.close();
+        }
+               
+        return true;
     }
     
-    public Usuario validaLogin(Usuario usu) throws SQLException{
-        // cria o select para ser executado no banco de dados 
+    //TODO: FINISH
+    public Boolean ValidaLogin(String login, String senha) throws SQLException{
         String sql = "select * from usuarios WHERE login = ? AND senha = ?";
-        // prepared statement para seleção
-        PreparedStatement stmt = this.c.prepareStatement(sql);
-        // seta os valores
-        stmt.setString(1,usu.getLogin());
-        stmt.setString(2,usu.getSenha());
-        // executa
-        ResultSet rs = stmt.executeQuery();
-        // percorrendo o rs
-        while (rs.next()) {      
-            // criando o objeto Usuario
-            usu.setId(rs.getInt(1));
-            usu.setNome(rs.getString(2));
-            usu.setLogin(rs.getString(3));
-            usu.setSenha(rs.getString(4));
-            usu.setStatus(rs.getString(5));
-            usu.setTipo(rs.getString(6));
-            // adiciona o usu à lista de usus
-        }
         
+        PreparedStatement stmt = this.c.prepareStatement(sql);
+
+        stmt.setString(1, login);
+        stmt.setString(2, senha);
+
+        ResultSet rs = stmt.executeQuery();
         stmt.close();
-        return usu;
+        
+        if(rs.next())
+        	return true;
+        else
+        	return false;
+        
     }
     
-    public List<Usuario> lista(Usuario usuEnt) throws SQLException{
-         // usus: array armazena a lista de registros
-
-        List<Usuario> usus = new ArrayList<>();
+    public List<Usuario> Listar() throws SQLException{
+        List<Usuario> users = new ArrayList<Usuario>();
         
-        String sql = "select * from usuarios where nome like ?";
+        String sql = "SELECT u.id_usuario, u.nm_usuario, u.nm_login, u.nm_senha, u.tp_genero, "
+        		+ "dg.nm_genero, u.nm_cep, u.id_idade FROM usuario u JOIN dom_genero dg "
+        		+ "ON u.tp_genero = dg.tp_genero";
         PreparedStatement stmt = this.c.prepareStatement(sql);
-        // seta os valores
-        stmt.setString(1,"%" + usuEnt.getNome() + "%");
-        
         ResultSet rs = stmt.executeQuery();
         
         while (rs.next()) {      
-            // criando o objeto Usuario
-            Usuario usu = new Usuario(
-                rs.getInt(1),
-                rs.getString(2),
-                rs.getString(3),
-                rs.getString(4),
-                rs.getString(5),
-                rs.getString(6)
+            Usuario user = new Usuario(
+            		rs.getInt(1),
+            		rs.getString(2),
+            		rs.getString(3),
+            		rs.getString(4),
+            		rs.getInt(5), 
+            		rs.getString(6),
+            		rs.getString(7),
+            		rs.getInt(8)
             );
-            // adiciona o usu à lista de usus
-            usus.add(usu);
+            users.add(user);
         }
         
         rs.close();
         stmt.close();
-        return usus;
-        
+        return users; 
     }
     
-    public List<Usuario> listaTodos() throws SQLException{
-         // usus: array armazena a lista de registros
-
-        List<Usuario> usus = new ArrayList<Usuario>();
-        
-        String sql = "select * from usuarios";
-        PreparedStatement stmt = this.c.prepareStatement(sql);
-        ResultSet rs = stmt.executeQuery();
-        
-        while (rs.next()) {      
-            // criando o objeto Usuario
-            Usuario usu = new Usuario(
-                rs.getInt(1),
-                rs.getString(2),
-                rs.getString(3),
-                rs.getString(4),
-                rs.getString(5),
-                rs.getString(6)
-            );
-            // adiciona o usu à lista de usus
-            usus.add(usu);
-        }
-        
-        rs.close();
-        stmt.close();
-        return usus;
-        
-    }
+    public Boolean Inserir(Usuario user) throws SQLException{
+        String sql = "INSERT INTO usuario(nm_usuario, nm_login, nm_senha, tp_genero,"
+        		+ " nm_cep, id_dade)" + " values (?,?,?,?,?,?)";
     
-    public Usuario inseri(Usuario usu) throws SQLException{
-        String sql = "insert into usuarios" + " (nome, login, senha, status, tipo)" + " values (?,?,?,?,?)";
-    
-        // prepared statement para inserção
         PreparedStatement stmt = c.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 
-        // seta os valores
-        stmt.setString(1,usu.getNome());
-        stmt.setString(2,usu.getLogin());
-        stmt.setString(3,usu.getSenha());
-        stmt.setString(4,usu.getStatus());
-        stmt.setString(5,usu.getTipo());
+        stmt.setString(1, user.GetNome());
+        stmt.setString(2, user.GetLogin());
+        stmt.setString(3, user.GetSenha());
+        stmt.setInt(4, user.GetGeneroTipo());
+        stmt.setString(5, user.GetCep());
+        stmt.setInt(6, user.GetIdade());
 
-        // executa
         stmt.executeUpdate();
         ResultSet rs = stmt.getGeneratedKeys();
-        if (rs.next()) {
-            int id = rs.getInt(1);
-            usu.setId(id);
-        }
         stmt.close();
-        return usu;
+        		
+        if (rs.next())
+        	return true;
+        else
+        	return false;
     }
-
 }
