@@ -1,80 +1,66 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.fatec.bean;
 
-import java.io.Serializable;
-
-/**
- *
- * @author ProfAlexandre
- */
-public class Usuario implements Serializable{
+public class Usuario{
     
     private int id;
     private String nome;
     private String login;
     private String senha;
-    private String status;
-    private String tipo;
+    private int genero;
+    private String cep;
+    private int idade;
     
-    public Usuario (int idp, String nomep,String loginp, String senhap, String statusp, String tipop) {
-        this.id = idp;
-        this.nome = nomep;
-        this.login = loginp;
-        this.senha = senhap;
-        this.status = statusp;
-        this.tipo = tipop;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
+    public Usuario (int id, String nome,String login, String senha, String status, String tipo, int genero, String cep, int idade) {
         this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
         this.nome = nome;
-    }
-    
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
         this.login = login;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
         this.senha = senha;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+        this.genero = genero;
+        this.cep = cep;
+        this.idade = idade;
     }
     
+    public int GetId() {
+    	return this.id;
+    }
+    
+    public void SetId(int id) {
+    	this.id = id;
+    }
+    
+    public String GetNome() {
+    	return this.nome;
+    }
+    
+    public void SetNome(String nome) {
+    	this.nome = nome;
+    }
+    
+    public String GetLogin() {
+    	return this.login;
+    }
+    
+    public int GetGenero() {
+    	return this.genero;
+    }
+    
+    public void SetGenero(int genero) {
+    	this.genero = genero;
+    }
+    
+    public String GetCep() {
+    	return this.cep;
+    }
+    
+    public void SetCep(String cep) {
+    	this.cep = cep;
+    }
+    
+    public int GetIdade() {
+    	return this.idade;
+    }
+    
+    public void SetIdade(int idade) {
+    	this.idade = idade;
+    }
 }

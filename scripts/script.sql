@@ -13,6 +13,8 @@ CREATE TABLE vac.vacinas(
 CREATE TABLE vac.usuario (
   id_usuario BIGINT NOT NULL AUTO_INCREMENT,
   nm_usuario VARCHAR(255),
+  nm_login VARCHAR(255),
+  nm_senha VARCHAR(255),
   tp_genero BIGINT,
   nm_cep VARCHAR(255),
   id_idade BIGINT,
@@ -62,7 +64,7 @@ INSERT INTO `vac`.`vacinas` (`id_vacina`, `nm_vacina`, `tp_carteira`) VALUES (16
 INSERT INTO `vac`.`vacinas` (`id_vacina`, `nm_vacina`, `tp_carteira`) VALUES (17, 'Tríplice Viral (VTV)', 3);
 INSERT INTO `vac`.`vacinas` (`id_vacina`, `nm_vacina`, `tp_carteira`) VALUES (18, 'Dupla Adulto (dT)', 3);
 
-INSERT INTO `vac`.`usuario` (`id_usuario`, `nm_usuario`, `tp_genero`, `nm_cep`, `id_idade`) VALUES (1, 'admin', 1, '012345-010', 21);
+INSERT INTO `vac`.`usuario` (`id_usuario`, `nm_usuario`, `nm_login`, `nm_senha`, `tp_genero`, `nm_cep`, `id_idade`) VALUES (1, 'admin', 'admin', 'admin', 1, '012345-010', 21);
 
 INSERT INTO `vac`.`dom_genero` (`tp_genero`, `nm_genero`) VALUES (1, 'Masculino');
 INSERT INTO `vac`.`dom_genero` (`tp_genero`, `nm_genero`) VALUES (2, 'Feminino');
