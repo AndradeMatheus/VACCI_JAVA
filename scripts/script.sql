@@ -1,4 +1,7 @@
-CREATE DATABASE vacci_2020;
+SET FOREIGN_KEY_CHECKS = 0;
+DROP DATABASE IF EXISTS vac;
+SET FOREIGN_KEY_CHECKS = 1;
+CREATE DATABASE vac;
 
 CREATE TABLE vac.vacinas(
   id_vacina BIGINT NOT NULL AUTO_INCREMENT,
@@ -26,23 +29,19 @@ CREATE TABLE vac.carteira(
 CREATE TABLE vac.dom_genero(
 	tp_genero BIGINT NOT NULL AUTO_INCREMENT,
     nm_genero VARCHAR(255),
-    PRIMARY KEY (id_genero)
+    PRIMARY KEY (tp_genero)
 );
 
 CREATE TABLE vac.dom_carteira(
-	tp_carteira BIGINT,
-    nm_carteira VARCHAR(255) 
+	tp_carteira BIGINT NOT NULL AUTO_INCREMENT,
+    nm_carteira VARCHAR(255),
+    PRIMARY KEY (tp_carteira)
 );
 
 CREATE TABLE vac.carteira_vacina(
 	id_carteira BIGINT,
     id_vacina BIGINT
 );
-
-ALTER TABLE vac.vacinas ADD CONSTRAINT FK_VACINA_CARTEIRA_TP FOREIGN KEY (tp_carteira) REFERENCES vac.dom_carteira(tp_carteira);
-ALTER TABLE vac.usuario ADD CONSTRAINT FK_USUARIO_GENERO_TP FOREIGN KEY (tp_genero) REFERENCES vac.dom_genero(tp_genero);
-ALTER TABLE vac.carteira ADD CONSTRAINT FK_USUARIO_CARTEIRA_ID FOREIGN KEY (id_usuario ) REFERENCES vac.usuario(id_usuario);
-ALTER TABLE vac.carteira ADD CONSTRAINT FK_CARTEIRA_CARTEIRA_TP FOREIGN KEY (tp_carteira) REFERENCES vac.dom_carteira(tp_carteira);
 
 INSERT INTO `vac`.`vacinas` (`id_vacina`, `nm_vacina`, `tp_carteira`) VALUES (1, 'BCG + VHB (Ao nascer)', 1);
 INSERT INTO `vac`.`vacinas` (`id_vacina`, `nm_vacina`, `tp_carteira`) VALUES (2, 'VHB (1 mês)', 1);
@@ -65,13 +64,18 @@ INSERT INTO `vac`.`vacinas` (`id_vacina`, `nm_vacina`, `tp_carteira`) VALUES (18
 
 INSERT INTO `vac`.`usuario` (`id_usuario`, `nm_usuario`, `tp_genero`, `nm_cep`, `id_idade`) VALUES (1, 'admin', 1, '012345-010', 21);
 
-INSERT INTO `vac`.`usuario` (`tp_genero`, `nm_genero`) VALUES (1, 'Masculino');
-INSERT INTO `vac`.`usuario` (`tp_genero`, `nm_genero`) VALUES (2, 'Feminino');
-INSERT INTO `vac`.`usuario` (`tp_genero`, `nm_genero`) VALUES (3, 'Outros');
+INSERT INTO `vac`.`dom_genero` (`tp_genero`, `nm_genero`) VALUES (1, 'Masculino');
+INSERT INTO `vac`.`dom_genero` (`tp_genero`, `nm_genero`) VALUES (2, 'Feminino');
+INSERT INTO `vac`.`dom_genero` (`tp_genero`, `nm_genero`) VALUES (3, 'Outros');
 
-INSERT INTO `vac`.`usuario` (`tp_carteira`, `nm_carteira`) VALUES (1, 'Criança');
-INSERT INTO `vac`.`usuario` (`tp_carteira`, `nm_carteira`) VALUES (2, 'Adolescente');
-INSERT INTO `vac`.`usuario` (`tp_carteira`, `nm_carteira`) VALUES (3, 'Adulto/Idoso');
+INSERT INTO `vac`.`dom_carteira` (`tp_carteira`, `nm_carteira`) VALUES (1, 'Criança');
+INSERT INTO `vac`.`dom_carteira` (`tp_carteira`, `nm_carteira`) VALUES (2, 'Adolescente');
+INSERT INTO `vac`.`dom_carteira` (`tp_carteira`, `nm_carteira`) VALUES (3, 'Adulto/Idoso');
+
+ALTER TABLE vac.vacinas ADD CONSTRAINT FK_VACINA_CARTEIRA_TP FOREIGN KEY (tp_carteira) REFERENCES vac.dom_carteira(tp_carteira);
+ALTER TABLE vac.usuario ADD CONSTRAINT FK_USUARIO_GENERO_TP FOREIGN KEY (tp_genero) REFERENCES vac.dom_genero(tp_genero);
+ALTER TABLE vac.carteira ADD CONSTRAINT FK_USUARIO_CARTEIRA_ID FOREIGN KEY (id_usuario ) REFERENCES vac.usuario(id_usuario);
+ALTER TABLE vac.carteira ADD CONSTRAINT FK_CARTEIRA_CARTEIRA_TP FOREIGN KEY (tp_carteira) REFERENCES vac.dom_carteira(tp_carteira);
 
 /*
 SELECT
