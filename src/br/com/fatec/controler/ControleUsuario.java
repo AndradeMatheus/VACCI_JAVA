@@ -11,10 +11,6 @@ import br.com.fatec.db.DaoUsuario;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- *
- * @author ProfAlexandre
- */
 public class ControleUsuario {
 	
     public Usuario BuscarUsuarioPorId(Usuario user) throws SQLException, ClassNotFoundException {
