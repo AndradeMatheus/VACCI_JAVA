@@ -1,9 +1,8 @@
 package br.com.fatec.controler;
 
-import br.com.fatec.bean.Usuario;
 import br.com.fatec.bean.Vacina;
-import java.lang.Boolean;
 import br.com.fatec.db.DaoVacina;
+import java.lang.Boolean;
 import java.sql.SQLException;
 import java.util.List;
 

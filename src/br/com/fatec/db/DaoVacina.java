@@ -7,9 +7,7 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
-import br.com.fatec.bean.Usuario;
 import br.com.fatec.bean.Vacina;
-
 import java.sql.Statement;
 
 public class DaoVacina {
@@ -108,7 +106,7 @@ public class DaoVacina {
     }
     
     public Boolean Inserir(Vacina vac) throws SQLException{
-        String sql = "INSERT INTO vacinas(nm_vacina, tp_carteira values (?,?)";
+        String sql = "INSERT INTO vacinas(nm_vacina, tp_carteira) values (?,?)";
     
         PreparedStatement stmt = c.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 
