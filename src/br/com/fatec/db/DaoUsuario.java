@@ -18,7 +18,6 @@ public class DaoUsuario {
         this.c = new ConexaoDB().getConnection();
     }
     
-    
     public Usuario BuscaPorId(int id) throws SQLException{
         String sql = "SELECT u.id_usuario, u.nm_usuario, u.nm_login, u.nm_senha, "
         		+ "dg.nm_genero, u.nm_cep, u.id_idade FROM usuario u JOIN dom_genero dg "
@@ -90,7 +89,6 @@ public class DaoUsuario {
         return true;
     }
     
-    //TODO: FINISH
     public Boolean ValidaLogin(String login, String senha) throws SQLException{
         String sql = "select * from usuarios WHERE nm_login = ? AND nm_senha = ?";
         

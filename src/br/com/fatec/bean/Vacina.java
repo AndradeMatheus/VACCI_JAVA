@@ -13,6 +13,9 @@ public class Vacina{
         this.carteira = new TipoCarteira(carteiraTipo, carteiraDescricao);
     }
     
+    public Vacina() {
+    }
+    
     public int GetId() {
     	return this.id;
     }
