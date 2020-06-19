@@ -1,8 +1,8 @@
 package br.com.fatec.controler;
 
 import br.com.fatec.bean.Carteira;
-import java.lang.Boolean;
 import br.com.fatec.db.DaoCarteira;
+import java.lang.Boolean;
 import java.sql.SQLException;
 import java.util.List;
 

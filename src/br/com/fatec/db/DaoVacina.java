@@ -7,9 +7,7 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
-import br.com.fatec.bean.Usuario;
 import br.com.fatec.bean.Vacina;
-
 import java.sql.Statement;
 
 public class DaoVacina {

@@ -8,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 import br.com.fatec.bean.Carteira;
-
 import java.sql.Statement;
 
 public class DaoCarteira {
