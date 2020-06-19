@@ -47,7 +47,7 @@ public class DaoUsuario {
     
     public Boolean Alterar(Usuario userModificado, Usuario user) throws SQLException{
         String sql = "UPDATE usuario SET nm_usuario = ?, nm_login = ?, "
-        		+ "nm_senha = ?, nm_genero = ?, nm_cep = ?, id_dade = ?, WHERE id = ?";
+        		+ "nm_senha = ?, nm_genero = ?, nm_cep = ?, id_dade = ?, WHERE id_usuario = ?";
         
         PreparedStatement stmt = c.prepareStatement(sql);
         
@@ -92,7 +92,7 @@ public class DaoUsuario {
     
     //TODO: FINISH
     public Boolean ValidaLogin(String login, String senha) throws SQLException{
-        String sql = "select * from usuarios WHERE login = ? AND senha = ?";
+        String sql = "select * from usuarios WHERE nm_login = ? AND nm_senha = ?";
         
         PreparedStatement stmt = this.c.prepareStatement(sql);
 
