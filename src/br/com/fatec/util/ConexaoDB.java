@@ -8,7 +8,7 @@ public class ConexaoDB {
     public Connection getConnection() throws SQLException, ClassNotFoundException {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            String url ="jdbc:mysql://localhost:3306/db2020";
+            String url ="jdbc:mysql://localhost:3306/vac";
             String usuario = "root";
             String senha = "password";
             return DriverManager.getConnection(url,usuario,senha);
