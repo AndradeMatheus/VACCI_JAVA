@@ -4,13 +4,13 @@ public class Vacina{
     
     private int id;
     private String nome;
-    private int tipoCarteira;
+    private TipoCarteira carteira;
 
     
-    public Vacina (int id, String nome, int tipoCarteira) {
+    public Vacina (int id, String nome, int carteiraTipo, String carteiraDescricao) {
         this.id = id;
         this.nome = nome;
-        this.tipoCarteira = tipoCarteira;
+        this.carteira = new TipoCarteira(carteiraTipo, carteiraDescricao);
     }
     
     public int GetId() {
@@ -29,11 +29,24 @@ public class Vacina{
     	this.nome = nome;
     }
     
-    public int GetTipoCarteira() {
-    	return this.tipoCarteira;
+    public void SetCarteira(int carteiraTipo, String carteiraDescricao){
+    	this.carteira.tipo = carteiraTipo;
+    	this.carteira.descricao = carteiraDescricao;
     }
     
-    public void SetTipoCarteira(int tipoCarteira) {
-    	this.tipoCarteira = tipoCarteira;
+    public int GetCarteiraTipo() {
+    	return this.carteira.tipo;
+    }
+    
+    public void SetCarteiraTipo(int carteiraTipo) {
+    	this.carteira.tipo = carteiraTipo;
+    }
+    
+    public String GetCarteiraDescricao() {
+    	return this.carteira.descricao;
+    }
+    
+    public void SetCarteiraDescricao(String carteiraDescricao) {
+    	this.carteira.descricao = carteiraDescricao;
     }
 }
