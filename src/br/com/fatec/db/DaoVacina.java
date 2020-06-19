@@ -108,7 +108,7 @@ public class DaoVacina {
     }
     
     public Boolean Inserir(Vacina vac) throws SQLException{
-        String sql = "INSERT INTO vacinas(nm_vacina, tp_carteira values (?,?)";
+        String sql = "INSERT INTO vacinas(nm_vacina, tp_carteira) values (?,?)";
     
         PreparedStatement stmt = c.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 
