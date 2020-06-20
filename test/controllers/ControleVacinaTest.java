@@ -1,9 +1,10 @@
-package br.com.fatec.controler;
+package controllers;
 
+import vacci.controller.ControleVacina;
+import vacci.bean.Vacina;
 import static org.junit.jupiter.api.Assertions.*;
 import java.sql.SQLException;
 import org.junit.jupiter.api.Test;
-import br.com.fatec.bean.Vacina;
 import java.util.List;
 
 class ControleVacinaTest {

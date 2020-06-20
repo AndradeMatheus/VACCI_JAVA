@@ -1,4 +1,4 @@
-package br.com.fatec.bean;
+package vacci.bean;
 
 public class TipoCarteira{
     

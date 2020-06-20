@@ -1,9 +1,10 @@
-package br.com.fatec.controler;
+package controllers;
 
+import vacci.controller.ControleCarteira;
+import vacci.bean.Carteira;
 import static org.junit.jupiter.api.Assertions.*;
 import java.sql.SQLException;
 import org.junit.jupiter.api.Test;
-import br.com.fatec.bean.Carteira;
 import java.util.List;
 
 class ControleCarteiraTest {
