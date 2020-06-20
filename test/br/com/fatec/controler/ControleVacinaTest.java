@@ -53,7 +53,7 @@ class ControleVacinaTest {
 		Boolean valida = vacController.AlterarVacina(vacModificado, vac);
 
 		if(valida)
-			assertEquals("TESTEALTERACAO", vacController.ListarVacinas().get(vacController.ListarVacinas().size() -1);
+			assertEquals("TESTEALTERACAO", vacController.ListarVacinas().get(vacController.ListarVacinas().size() -1));
 		else
 			assertTrue(false);
 	}
