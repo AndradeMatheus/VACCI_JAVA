@@ -1,13 +1,13 @@
-package br.com.fatec.db;
+package vacci.db;
 
-import br.com.fatec.util.ConexaoDB;
+import vacci.util.ConexaoDB;
+import vacci.bean.Carteira;
 import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
-import br.com.fatec.bean.Carteira;
 import java.sql.Statement;
 
 public class DaoCarteira {

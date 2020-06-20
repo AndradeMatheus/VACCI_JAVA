@@ -1,9 +1,10 @@
-package br.com.fatec.controler;
+package controllers;
 
+import vacci.controller.ControleCarteira;
+import vacci.bean.Carteira;
 import static org.junit.jupiter.api.Assertions.*;
 import java.sql.SQLException;
 import org.junit.jupiter.api.Test;
-import br.com.fatec.bean.Carteira;
 import java.util.List;
 
 class ControleCarteiraTest {
@@ -37,16 +38,15 @@ class ControleCarteiraTest {
 
 		Carteira cartComparison = cartController.ListarCarteiras().get(1);
 
-		assertEquals(cart.GetId(), cartComparison.GetId());
+		assertEquals(cart.GetUsuarioId(), cartComparison.GetUsuarioId());
 	}
 
 	@Test
-	void testAlterarUsuario() throws ClassNotFoundException, SQLException{
+	void testAlterarCarteira() throws ClassNotFoundException, SQLException{
 		ControleCarteira cartController = new ControleCarteira();
 
 		Carteira cart = new Carteira();
-		cart.SetId(1);
-		cart = cartController.BuscarCarteiraPorId(cart);
+		cart = cartController.ListarCarteiras().get(cartController.ListarCarteiras().size() -1);
 
 		Carteira cartModificado = new Carteira();
 		cartModificado.SetCarteiraTipo(2);
@@ -54,27 +54,22 @@ class ControleCarteiraTest {
 		Boolean valida = cartController.AlterarCarteira(cartModificado, cart);
 
 		if(valida)
-			assertEquals(cartModificado.GetCarteiraTipo(), cartController.BuscarCarteiraPorId(cart).GetCarteiraTipo());
+			assertEquals(2, cartController.BuscarCarteiraPorId(cart).GetCarteiraTipo());
 		else
 			assertTrue(false);
 	}
 
 	@Test
-	void testExcluirUsuario() throws ClassNotFoundException, SQLException{
-		Boolean validaExclusao;
-		Carteira ultimaCarteira = new Carteira();
-
-		Carteira cart = new Carteira(0, 33, 3);
-
+	void testExcluirCarteira() throws ClassNotFoundException, SQLException{
 		ControleCarteira cartController = new ControleCarteira();
-		Boolean validaInsercao = cartController.InserirCarteira(cart);
+		
+		Carteira ultimaCarteira = new Carteira();
+		Carteira cart = cartController.ListarCarteiras().get(cartController.ListarCarteiras().size() -1);
 
-		if(validaInsercao){
-			validaExclusao = cartController.ExcluirCarteira(cart);
-			if(validaExclusao){
-				ultimaCarteira = cartController.ListarCarteiras().get(cartController.ListarCarteiras().size() -1);
-			}
-		}
+		Boolean validaExclusao = cartController.ExcluirCarteira(cart);
+
+		if(validaExclusao)
+			ultimaCarteira = cartController.ListarCarteiras().get(cartController.ListarCarteiras().size() -1);
 
 		assertNotEquals(ultimaCarteira.GetUsuarioId(), cart.GetUsuarioId());
 	}

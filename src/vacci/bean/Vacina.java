@@ -1,27 +1,27 @@
-package br.com.fatec.bean;
+package vacci.bean;
 
-public class Carteira{
+public class Vacina{
     
     private int id;
-    private Usuario usuario;
+    private String nome;
     private TipoCarteira carteira;
 
     
-    public Carteira (int id, Usuario usuario, int carteiraTipo, String carteiraDescricao) {
+    public Vacina (int id, String nome, int carteiraTipo, String carteiraDescricao) {
         this.id = id;
-        this.usuario = new Usuario();
+        this.nome = nome;
         this.carteira = new TipoCarteira(carteiraTipo, carteiraDescricao);
     }
 
-    public Carteira(int id, int userId, int carteiraTipo){
+    public Vacina(int id, String nome, int carteiraTipo){
         this.id = id;
-        this.usuario.SetId(userId);
+        this.nome = nome;
         this.carteira = new TipoCarteira(carteiraTipo);
     }
     
-    public Carteira(){        
+    public Vacina() {
     }
-
+    
     public int GetId() {
     	return this.id;
     }
@@ -30,22 +30,14 @@ public class Carteira{
     	this.id = id;
     }
     
-    public int GetUsuarioId() {
-    	return this.usuario.GetId();
+    public String GetNome() {
+    	return this.nome;
     }
     
-    public void SetUsuarioId(int idUsuario) {
-    	this.usuario.SetId(idUsuario);
+    public void SetNome(String nome) {
+    	this.nome = nome;
     }
     
-    public String GetUsuarioNome(){
-        return this.usuario.GetNome();
-    }
-
-    public void SetUsuarioNome(String nomeUsuario){
-        this.usuario.SetNome(nomeUsuario);
-    }
-
     public void SetCarteira(int carteiraTipo, String carteiraDescricao){
     	this.carteira.tipo = carteiraTipo;
     	this.carteira.descricao = carteiraDescricao;

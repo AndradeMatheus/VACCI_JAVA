@@ -1,4 +1,4 @@
-package br.com.fatec.util;
+package vacci.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

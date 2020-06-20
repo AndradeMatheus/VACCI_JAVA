@@ -1,7 +1,7 @@
-package br.com.fatec.controler;
+package vacci.controller;
 
-import br.com.fatec.bean.Usuario;
-import br.com.fatec.db.DaoUsuario;
+import vacci.bean.Usuario;
+import vacci.db.DaoUsuario;
 import java.lang.Boolean;
 import java.sql.SQLException;
 import java.util.List;

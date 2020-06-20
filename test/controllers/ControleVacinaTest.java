@@ -1,14 +1,15 @@
-package br.com.fatec.controler;
+package controllers;
 
+import vacci.controller.ControleVacina;
+import vacci.bean.Vacina;
 import static org.junit.jupiter.api.Assertions.*;
 import java.sql.SQLException;
 import org.junit.jupiter.api.Test;
-import br.com.fatec.bean.Vacina;
 import java.util.List;
 
 class ControleVacinaTest {
 
-	@@Test
+	@Test
 	void testInsertVacina() throws ClassNotFoundException, SQLException {
 		Vacina vac = new Vacina(0, "Teste", 3);
 		
@@ -53,13 +54,13 @@ class ControleVacinaTest {
 		Boolean valida = vacController.AlterarVacina(vacModificado, vac);
 
 		if(valida)
-			assertEquals("TESTEALTERACAO", vacController.ListarVacinas().get(vacController.ListarVacinas().size() -1);
+			assertEquals("TESTEALTERACAO", vacController.BuscarVacinaPorId(vac).GetNome());
 		else
 			assertTrue(false);
 	}
 
 	@Test
-	void testExcluir() throws ClassNotFoundException, SQLException{
+	void testExcluirVacina() throws ClassNotFoundException, SQLException{
 		ControleVacina vacController = new ControleVacina();
 		
 		Vacina ultimaVacina = new Vacina();
