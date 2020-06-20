@@ -6,26 +6,33 @@ import vacci.bean.CarteiraVacina;
 import vacci.bean.Vacina;
 import static org.junit.jupiter.api.Assertions.*;
 import java.sql.SQLException;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import java.util.List;
 
-class ControleCarteiraTest {
-
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class ControleCarteiraTest {
+	
 	@Test
-	void testInserirCarteira() throws ClassNotFoundException, SQLException {
-		Carteira cart = new Carteira(0, 24, 1);
+	@Order(1)
+	void testInserirCarteira() throws ClassNotFoundException, SQLException {		
+		Carteira cart = new Carteira(0, 1, 3);
 		
 		ControleCarteira cartController = new ControleCarteira();
 		Boolean valida = cartController.InserirCarteira(cart);
+		
 		Carteira cartNova = cartController.ListarCarteiras().get(cartController.ListarCarteiras().size() -1);
 
 		if(valida)
-			assertEquals(cart.GetUsuarioId(), cartNova.GetUsuarioId());
+			assertEquals(cart.GetCarteiraTipo(), cartNova.GetCarteiraTipo());
 		else
 			assertTrue(false);
 	}
 
 	@Test
+	@Order(2)
 	void testListarCarteiras() throws ClassNotFoundException, SQLException {
 		ControleCarteira cartController = new ControleCarteira();
 		List<Carteira> carts = cartController.ListarCarteiras();
@@ -34,16 +41,18 @@ class ControleCarteiraTest {
 	}
 
 	@Test
+	@Order(3)
 	void testBuscarCarteiraPorId() throws ClassNotFoundException, SQLException {
 		ControleCarteira cartController = new ControleCarteira();
 		Carteira cart = cartController.BuscarCarteiraPorId(new Carteira(1, 0, 0));
 
-		Carteira cartComparison = cartController.ListarCarteiras().get(1);
+		Carteira cartComparison = cartController.ListarCarteiras().get(0);
 
-		assertEquals(cart.GetUsuarioId(), cartComparison.GetUsuarioId());
+		assertEquals(cart.GetUsuarioNome(), cartComparison.GetUsuarioNome());
 	}
 
 	@Test
+	@Order(4)
 	void testAlterarCarteira() throws ClassNotFoundException, SQLException{
 		ControleCarteira cartController = new ControleCarteira();
 
@@ -62,6 +71,7 @@ class ControleCarteiraTest {
 	}
 
 	@Test
+	@Order(5)
 	void testRegistrarCarteiraVacina() throws ClassNotFoundException, SQLException{
 		ControleCarteira cartController = new ControleCarteira();
 		
@@ -74,6 +84,7 @@ class ControleCarteiraTest {
 	}
 
 	@Test
+	@Order(6)
 	void testListarCarteiraVacinas() throws ClassNotFoundException, SQLException{
 		ControleCarteira cartController = new ControleCarteira();
 		List<CarteiraVacina> cartVacs = cartController
@@ -84,6 +95,7 @@ class ControleCarteiraTest {
 	}
 
 	@Test
+	@Order(7)
 	void testExcluirCarteira() throws ClassNotFoundException, SQLException{
 		ControleCarteira cartController = new ControleCarteira();
 		
@@ -95,6 +107,6 @@ class ControleCarteiraTest {
 		if(validaExclusao)
 			ultimaCarteira = cartController.ListarCarteiras().get(cartController.ListarCarteiras().size() -1);
 
-		assertNotEquals(ultimaCarteira.GetUsuarioId(), cart.GetUsuarioId());
+		assertNotEquals(ultimaCarteira.GetId(), cart.GetId());
 	}
 }
