@@ -52,123 +52,142 @@ public class DaoUsuario {
     }
     
     public Boolean Alterar(Usuario userModificado, Usuario user) throws SQLException{
-        String sql = "UPDATE usuario SET nm_usuario = ?, nm_login = ?, "
-        		+ "nm_senha = ?, nm_genero = ?, nm_cep = ?, id_dade = ?, WHERE id_usuario = ?";
-        
-        PreparedStatement stmt = c.prepareStatement(sql);
-        
-        stmt.setString(1, userModificado.GetNome() == null ? user.GetNome() : userModificado.GetNome());
-        stmt.setString(2, userModificado.GetLogin() == null ? user.GetNome() : userModificado.GetNome());
-        stmt.setString(3, userModificado.GetSenha() == null ? user.GetSenha() : userModificado.GetSenha());
-        stmt.setInt(4, userModificado.GetGeneroTipo() == 0 ? user.GetGeneroTipo() : userModificado.GetGeneroTipo());
-        stmt.setString(5, userModificado.GetCep() == null ? user.GetCep() : userModificado.GetCep());
-        stmt.setInt(6, userModificado.GetIdade() == 0 ? user.GetIdade() : userModificado.GetIdade());
-        stmt.setInt(7, user.GetId());
+        try{
+            String sql = "UPDATE usuario SET nm_usuario = ?, nm_login = ?, "
+            + "nm_senha = ?, nm_genero = ?, nm_cep = ?, id_dade = ?, WHERE id_usuario = ?";
+    
+            PreparedStatement stmt = c.prepareStatement(sql);
+            
+            stmt.setString(1, userModificado.GetNome() == null ? user.GetNome() : userModificado.GetNome());
+            stmt.setString(2, userModificado.GetLogin() == null ? user.GetNome() : userModificado.GetNome());
+            stmt.setString(3, userModificado.GetSenha() == null ? user.GetSenha() : userModificado.GetSenha());
+            stmt.setInt(4, userModificado.GetGeneroTipo() == 0 ? user.GetGeneroTipo() : userModificado.GetGeneroTipo());
+            stmt.setString(5, userModificado.GetCep() == null ? user.GetCep() : userModificado.GetCep());
+            stmt.setInt(6, userModificado.GetIdade() == 0 ? user.GetIdade() : userModificado.GetIdade());
+            stmt.setInt(7, user.GetId());
 
-        try {
             stmt.execute();
-        }catch(Exception ex) {
-        	return false;
-        }finally {
-            stmt.close();
+
+            return true;
+
+        }catch(Exception ex){
+            return false;
+
+        }finally{
             c.close();
-        }
-        
-        return true;
+        }        
     }
 
     public Boolean Excluir(Usuario user) throws SQLException{
-        String sql = "DELETE FROM carteira_vacina WHERE id_carteira = (SELECT id_carteira FROM carteira WHERE id_usuario = ?) ; " +
+        try{
+            String sql = "DELETE FROM carteira_vacina WHERE id_carteira = (SELECT id_carteira FROM carteira WHERE id_usuario = ?) ; " +
                 "DELETE FROM carteira WHERE id_usuario = ? ; " +
                 "DELETE FROM usuario WHERE id_usuario = ?";
 
-        PreparedStatement stmt = c.prepareStatement(sql);
+            PreparedStatement stmt = c.prepareStatement(sql);
 
-        stmt.setInt(1, user.GetId());
-        stmt.setInt(2, user.GetId());
-        stmt.setInt(3, user.GetId());
+            stmt.setInt(1, user.GetId());
+            stmt.setInt(2, user.GetId());
+            stmt.setInt(3, user.GetId());
 
-        try {
-        	stmt.execute();	
-        }catch(Exception ex) {
-        	return false;
-        }finally {
-            stmt.close();
+            stmt.execute();
+
+            return true;
+
+        }catch(Exception ex){
+            return false;
+
+        }finally{
             c.close();
         }
-               
-        return true;
     }
     
     public Boolean ValidaLogin(String login, String senha) throws SQLException{
-        String sql = "select * from usuarios WHERE nm_login = ? AND nm_senha = ?";
+        try{
+            String sql = "select * from usuarios WHERE nm_login = ? AND nm_senha = ?";
         
-        PreparedStatement stmt = this.c.prepareStatement(sql);
+            PreparedStatement stmt = this.c.prepareStatement(sql);
 
-        stmt.setString(1, login);
-        stmt.setString(2, senha);
+            stmt.setString(1, login);
+            stmt.setString(2, senha);
 
-        ResultSet rs = stmt.executeQuery();
-        stmt.close();
-        c.close();
-        
-        if(rs.next())
-        	return true;
-        else
-        	return false;
-        
+            ResultSet rs = stmt.executeQuery();
+            stmt.close();
+
+            if(rs.next())
+        	    return true;
+            else
+                return false;
+                
+        }catch(Exception ex){
+            return false;
+
+        }finally{
+            c.close();
+        }
     }
     
     public List<Usuario> Listar() throws SQLException{
-        List<Usuario> users = new ArrayList<Usuario>();
+        try{
+            List<Usuario> users = new ArrayList<Usuario>();
         
-        String sql = "SELECT u.id_usuario, u.nm_usuario, u.nm_login, u.nm_senha, u.tp_genero, "
-        		+ "dg.nm_genero, u.nm_cep, u.id_idade FROM usuario u JOIN dom_genero dg "
-        		+ "ON u.tp_genero = dg.tp_genero";
-        PreparedStatement stmt = this.c.prepareStatement(sql);
-        ResultSet rs = stmt.executeQuery();
-        
-        while (rs.next()) {      
-            Usuario user = new Usuario(
-            		rs.getInt(1),
-            		rs.getString(2),
-            		rs.getString(3),
-            		rs.getString(4),
-            		rs.getInt(5), 
-            		rs.getString(6),
-            		rs.getString(7),
-            		rs.getInt(8)
-            );
-            users.add(user);
+            String sql = "SELECT u.id_usuario, u.nm_usuario, u.nm_login, u.nm_senha, u.tp_genero, "
+                    + "dg.nm_genero, u.nm_cep, u.id_idade FROM usuario u JOIN dom_genero dg "
+                    + "ON u.tp_genero = dg.tp_genero";
+            PreparedStatement stmt = this.c.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            
+            while (rs.next()) {      
+                Usuario user = new Usuario(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5), 
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getInt(8)
+                );
+                users.add(user);
+            }
+
+            return users; 
+
+        }catch(Exception ex){
+            return new ArrayList<Usuario>();
+
+        }finally{
+            c.close();
         }
-        
-        rs.close();
-        stmt.close();
-        c.close();
-        return users; 
     }
     
     public Boolean Inserir(Usuario user) throws SQLException{
-        String sql = "INSERT INTO usuario(nm_usuario, nm_login, nm_senha, tp_genero,"
+        try{
+            String sql = "INSERT INTO usuario(nm_usuario, nm_login, nm_senha, tp_genero,"
         		+ " nm_cep, id_idade)" + " values (?,?,?,?,?,?)";
     
-        PreparedStatement stmt = c.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = c.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 
-        stmt.setString(1, user.GetNome());
-        stmt.setString(2, user.GetLogin());
-        stmt.setString(3, user.GetSenha());
-        stmt.setInt(4, user.GetGeneroTipo());
-        stmt.setString(5, user.GetCep());
-        stmt.setInt(6, user.GetIdade());
+            stmt.setString(1, user.GetNome());
+            stmt.setString(2, user.GetLogin());
+            stmt.setString(3, user.GetSenha());
+            stmt.setInt(4, user.GetGeneroTipo());
+            stmt.setString(5, user.GetCep());
+            stmt.setInt(6, user.GetIdade());
 
-        stmt.executeUpdate();
-        ResultSet rs = stmt.getGeneratedKeys();
-        stmt.close();
-        c.close();
-        		
-        if (rs.next())
-        	return true;
-        else
-        	return false;
+            stmt.executeUpdate();
+            ResultSet rs = stmt.getGeneratedKeys();
+
+            if (rs.next())
+        	    return true;
+            else
+        	    return false;
+
+        }catch(Exception ex){
+            return false;
+
+        }finally{
+            c.close();
+        }
     }
 }
