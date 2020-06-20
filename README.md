@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-TRABALHO FATEC 2020
-
-Este trabalho consiste em apresentarmos o funcionamento do VACCI, um sistema de registro para carteiras de vacinação online.
-
-=======
 # VACCI 2020 (JAVA)
 
 Este trabalho consiste em apresentarmos o funcionamento do VACCI, um sistema de registro para carteiras de vacinação online.
@@ -31,4 +25,3 @@ O projeto em si tem a intenção de ser fechado, desenvolvido apenas com o intui
 
 ## Licença
 [FATEC Zona Sul](http://www.fateczonasul.edu.br/)
->>>>>>> master
