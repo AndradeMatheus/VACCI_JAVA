@@ -1,4 +1,4 @@
-package controllers;
+package tests;
 
 import vacci.controller.ControleUsuario;
 import vacci.bean.Usuario;
@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 class ControleUsuarioTest {
+	
 	@Test
 	void testInserirUsuario() throws ClassNotFoundException, SQLException {
 		Usuario user = new Usuario(0,
