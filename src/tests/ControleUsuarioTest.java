@@ -4,12 +4,17 @@ import vacci.controller.ControleUsuario;
 import vacci.bean.Usuario;
 import static org.junit.jupiter.api.Assertions.*;
 import java.sql.SQLException;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import java.util.List;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ControleUsuarioTest {
 	
 	@Test
+	@Order(1)
 	void testInserirUsuario() throws ClassNotFoundException, SQLException {
 		Usuario user = new Usuario(0,
 				"USUARIOTESTE",
@@ -31,6 +36,7 @@ class ControleUsuarioTest {
 	}
 
 	@Test
+	@Order(2)
 	void testValidaLogin() throws ClassNotFoundException, SQLException {
 		ControleUsuario userController = new ControleUsuario();
 		Boolean valida = userController.ValidaLogin("LOGINTESTE", "SENHATESTE");
@@ -39,6 +45,7 @@ class ControleUsuarioTest {
 	}
 
 	@Test
+	@Order(3)
 	void testListarUsuarios() throws ClassNotFoundException, SQLException {
 		ControleUsuario userController = new ControleUsuario();
 		List<Usuario> users = userController.ListarUsuarios();
@@ -47,16 +54,18 @@ class ControleUsuarioTest {
 	}
 
 	@Test
+	@Order(4)
 	void testBuscarUsuarioPorId() throws ClassNotFoundException, SQLException {
 		ControleUsuario userController = new ControleUsuario();
 		Usuario user = userController.BuscarUsuarioPorId(new Usuario(1, "", "", "", 0, "", "", 0));
 
-		Usuario userComparison = userController.ListarUsuarios().get(1);
+		Usuario userComparison = userController.ListarUsuarios().get(0);
 
 		assertEquals(user.GetNome(), userComparison.GetNome());
 	}
 
 	@Test
+	@Order(5)
 	void testAlterarUsuario() throws ClassNotFoundException, SQLException{
 		ControleUsuario userController = new ControleUsuario();
 
@@ -75,13 +84,14 @@ class ControleUsuarioTest {
 	}
 
 	@Test
+	@Order(6)
 	void testExcluirUsuario() throws ClassNotFoundException, SQLException{
 		ControleUsuario userController = new ControleUsuario();
 		
 		Usuario ultimoUser = new Usuario();
 		Usuario user = userController.ListarUsuarios().get(userController.ListarUsuarios().size() -1);
 
-		Boolean validaExclusao = userController.InserirUsuario(user);
+		Boolean validaExclusao = userController.ExcluirUsuario(user);
 			
 		if(validaExclusao)
 			ultimoUser = userController.ListarUsuarios().get(userController.ListarUsuarios().size() -1);
