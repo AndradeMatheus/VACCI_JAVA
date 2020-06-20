@@ -64,7 +64,9 @@ INSERT INTO `vac`.`vacinas` (`id_vacina`, `nm_vacina`, `tp_carteira`) VALUES (16
 INSERT INTO `vac`.`vacinas` (`id_vacina`, `nm_vacina`, `tp_carteira`) VALUES (17, 'Tríplice Viral (VTV)', 3);
 INSERT INTO `vac`.`vacinas` (`id_vacina`, `nm_vacina`, `tp_carteira`) VALUES (18, 'Dupla Adulto (dT)', 3);
 
-INSERT INTO `vac`.`usuario` (`id_usuario`, `nm_usuario`, `nm_login`, `nm_senha`, `tp_genero`, `nm_cep`, `id_idade`) VALUES (1, 'admin', 'admin', 'admin', 1, '012345-010', 21);
+INSERT INTO `vac`.`usuario` (`id_usuario`, `nm_usuario`, `nm_login`, `nm_senha`, `tp_genero`, `nm_cep`, `id_idade`) VALUES (1, 'admin', 'admin', 'admin', 1, '01234-567', 21);
+
+INSERT INTO `vac`.`carteira` (`id_carteira`, `id_usuario`, `tp_carteira`) VALUES (1, 1, 1);
 
 INSERT INTO `vac`.`dom_genero` (`tp_genero`, `nm_genero`) VALUES (1, 'Masculino');
 INSERT INTO `vac`.`dom_genero` (`tp_genero`, `nm_genero`) VALUES (2, 'Feminino');
