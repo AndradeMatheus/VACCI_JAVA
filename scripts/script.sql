@@ -52,7 +52,7 @@ INSERT INTO `vac`.`vacinas` (`id_vacina`, `nm_vacina`, `tp_carteira`) VALUES (4,
 INSERT INTO `vac`.`vacinas` (`id_vacina`, `nm_vacina`, `tp_carteira`) VALUES (5, 'FA (9 meses)', 1);
 INSERT INTO `vac`.`vacinas` (`id_vacina`, `nm_vacina`, `tp_carteira`) VALUES (6, 'Tríplice Viral (12 meses)', 1);
 INSERT INTO `vac`.`vacinas` (`id_vacina`, `nm_vacina`, `tp_carteira`) VALUES (7, 'DPTT + SABIN (15 meses)', 1);
-INSERT INTO `vac`.`vacinas` (`id_vacina`, `nm_vacina`, `tp_carteira`) VALUES (8, 'DPT + Trípiplice Viral (4-6 anos)', 1);
+INSERT INTO `vac`.`vacinas` (`id_vacina`, `nm_vacina`, `tp_carteira`) VALUES (8, 'DPT + Tríplice Viral (4-6 anos)', 1);
 INSERT INTO `vac`.`vacinas` (`id_vacina`, `nm_vacina`, `tp_carteira`) VALUES (9, 'dT + FA (10-11 anos)', 1);
 INSERT INTO `vac`.`vacinas` (`id_vacina`, `nm_vacina`, `tp_carteira`) VALUES (10, 'Papilomavírus Humano (HPV) (11 a 14 - meninos)', 2);
 INSERT INTO `vac`.`vacinas` (`id_vacina`, `nm_vacina`, `tp_carteira`) VALUES (11, 'Meningocócica C (11 a 14 meninos e meninas', 2);
@@ -66,15 +66,13 @@ INSERT INTO `vac`.`vacinas` (`id_vacina`, `nm_vacina`, `tp_carteira`) VALUES (18
 
 INSERT INTO `vac`.`usuario` (`id_usuario`, `nm_usuario`, `nm_login`, `nm_senha`, `tp_genero`, `nm_cep`, `id_idade`) VALUES (1, 'admin', 'admin', 'admin', 1, '01234-567', 21);
 
-INSERT INTO `vac`.`carteira` (`id_carteira`, `id_usuario`, `tp_carteira`) VALUES (1, 1, 1);
-
 INSERT INTO `vac`.`dom_genero` (`tp_genero`, `nm_genero`) VALUES (1, 'Masculino');
 INSERT INTO `vac`.`dom_genero` (`tp_genero`, `nm_genero`) VALUES (2, 'Feminino');
 INSERT INTO `vac`.`dom_genero` (`tp_genero`, `nm_genero`) VALUES (3, 'Outros');
 
 INSERT INTO `vac`.`dom_carteira` (`tp_carteira`, `nm_carteira`) VALUES (1, 'Criança');
 INSERT INTO `vac`.`dom_carteira` (`tp_carteira`, `nm_carteira`) VALUES (2, 'Adolescente');
-INSERT INTO `vac`.`dom_carteira` (`tp_carteira`, `nm_carteira`) VALUES (3, 'Adulto/Idoso');
+INSERT INTO `vac`.`dom_carteira` (`tp_carteira`, `nm_carteira`) VALUES (3, 'Adulto');
 
 ALTER TABLE vac.vacinas ADD CONSTRAINT FK_VACINA_CARTEIRA_TP FOREIGN KEY (tp_carteira) REFERENCES vac.dom_carteira(tp_carteira);
 ALTER TABLE vac.usuario ADD CONSTRAINT FK_USUARIO_GENERO_TP FOREIGN KEY (tp_genero) REFERENCES vac.dom_genero(tp_genero);
