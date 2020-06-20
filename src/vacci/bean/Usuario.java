@@ -21,6 +21,7 @@ public class Usuario{
     }
     
     public Usuario() {
+    	this.genero = new Genero();
     }
     
     public int GetId() {

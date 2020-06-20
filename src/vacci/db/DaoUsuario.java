@@ -18,6 +18,36 @@ public class DaoUsuario {
         this.c = new ConexaoDB().getConnection();
     }
     
+    public Boolean Inserir(Usuario user) throws SQLException{
+        try{
+            String sql = "INSERT INTO usuario(nm_usuario, nm_login, nm_senha, tp_genero,"
+        		+ " nm_cep, id_idade)" + " values (?,?,?,?,?,?)";
+    
+            PreparedStatement stmt = c.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+
+            stmt.setString(1, user.GetNome());
+            stmt.setString(2, user.GetLogin());
+            stmt.setString(3, user.GetSenha());
+            stmt.setInt(4, user.GetGeneroTipo());
+            stmt.setString(5, user.GetCep());
+            stmt.setInt(6, user.GetIdade());
+
+            stmt.executeUpdate();
+            ResultSet rs = stmt.getGeneratedKeys();
+
+            if (rs.next())
+        	    return true;
+            else
+        	    return false;
+
+        }catch(Exception ex){
+            return false;
+
+        }finally{
+            c.close();
+        }
+    }
+    
     public Usuario BuscaPorId(int id) throws SQLException{
         try{
             String sql = "SELECT u.id_usuario, u.nm_usuario, u.nm_login, u.nm_senha, "
@@ -50,11 +80,35 @@ public class DaoUsuario {
             c.close();
         }
     }
+
+    public Boolean ValidaLogin(String login, String senha) throws SQLException{
+        try{
+            String sql = "select * from usuario WHERE nm_login = ? AND nm_senha = ?";
+        
+            PreparedStatement stmt = this.c.prepareStatement(sql);
+
+            stmt.setString(1, login);
+            stmt.setString(2, senha);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if(rs.next())
+        	    return true;
+            else
+                return false;
+                
+        }catch(Exception ex){
+            return false;
+
+        }finally{
+            c.close();
+        }
+    }
     
     public Boolean Alterar(Usuario userModificado, Usuario user) throws SQLException{
         try{
             String sql = "UPDATE usuario SET nm_usuario = ?, nm_login = ?, "
-            + "nm_senha = ?, nm_genero = ?, nm_cep = ?, id_dade = ?, WHERE id_usuario = ?";
+            + "nm_senha = ?, tp_genero = ?, nm_cep = ?, id_idade = ? WHERE id_usuario = ?";
     
             PreparedStatement stmt = c.prepareStatement(sql);
             
@@ -80,45 +134,24 @@ public class DaoUsuario {
 
     public Boolean Excluir(Usuario user) throws SQLException{
         try{
-            String sql = "DELETE FROM carteira_vacina WHERE id_carteira = (SELECT id_carteira FROM carteira WHERE id_usuario = ?) ; " +
-                "DELETE FROM carteira WHERE id_usuario = ? ; " +
-                "DELETE FROM usuario WHERE id_usuario = ?";
+            String sql1 = "DELETE FROM carteira_vacina WHERE id_carteira = (SELECT id_carteira FROM carteira WHERE id_usuario = ?)";
+            String sql2 = "DELETE FROM carteira WHERE id_usuario = ?";
+            String sql3 = "DELETE FROM usuario WHERE id_usuario = ?";
 
-            PreparedStatement stmt = c.prepareStatement(sql);
+            PreparedStatement stmt1 = c.prepareStatement(sql1);
+            PreparedStatement stmt2 = c.prepareStatement(sql2);
+            PreparedStatement stmt3 = c.prepareStatement(sql3);
 
-            stmt.setInt(1, user.GetId());
-            stmt.setInt(2, user.GetId());
-            stmt.setInt(3, user.GetId());
+            stmt1.setInt(1, user.GetId());
+            stmt2.setInt(1, user.GetId());
+            stmt3.setInt(1, user.GetId());
 
-            stmt.execute();
+            stmt1.execute();
+            stmt2.execute();
+            stmt3.execute();
 
             return true;
 
-        }catch(Exception ex){
-            return false;
-
-        }finally{
-            c.close();
-        }
-    }
-    
-    public Boolean ValidaLogin(String login, String senha) throws SQLException{
-        try{
-            String sql = "select * from usuarios WHERE nm_login = ? AND nm_senha = ?";
-        
-            PreparedStatement stmt = this.c.prepareStatement(sql);
-
-            stmt.setString(1, login);
-            stmt.setString(2, senha);
-
-            ResultSet rs = stmt.executeQuery();
-            stmt.close();
-
-            if(rs.next())
-        	    return true;
-            else
-                return false;
-                
         }catch(Exception ex){
             return false;
 
@@ -155,36 +188,6 @@ public class DaoUsuario {
 
         }catch(Exception ex){
             return new ArrayList<Usuario>();
-
-        }finally{
-            c.close();
-        }
-    }
-    
-    public Boolean Inserir(Usuario user) throws SQLException{
-        try{
-            String sql = "INSERT INTO usuario(nm_usuario, nm_login, nm_senha, tp_genero,"
-        		+ " nm_cep, id_idade)" + " values (?,?,?,?,?,?)";
-    
-            PreparedStatement stmt = c.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-
-            stmt.setString(1, user.GetNome());
-            stmt.setString(2, user.GetLogin());
-            stmt.setString(3, user.GetSenha());
-            stmt.setInt(4, user.GetGeneroTipo());
-            stmt.setString(5, user.GetCep());
-            stmt.setInt(6, user.GetIdade());
-
-            stmt.executeUpdate();
-            ResultSet rs = stmt.getGeneratedKeys();
-
-            if (rs.next())
-        	    return true;
-            else
-        	    return false;
-
-        }catch(Exception ex){
-            return false;
 
         }finally{
             c.close();
