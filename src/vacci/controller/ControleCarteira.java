@@ -1,6 +1,8 @@
 package vacci.controller;
 
 import vacci.bean.Carteira;
+import vacci.bean.CarteiraVacina;
+import vacci.bean.Vacina;
 import vacci.db.DaoCarteira;
 import java.lang.Boolean;
 import java.sql.SQLException;
@@ -35,5 +37,17 @@ public class ControleCarteira {
     	DaoCarteira cartDao = new DaoCarteira();
         Boolean valida = cartDao.Inserir(cart);
         return valida;
-    }    
+    }
+    
+    public List<CarteiraVacina> ListarCarteiraVacinas(Carteira cart) throws SQLException, ClassNotFoundException {
+        DaoCarteira cartDao = new DaoCarteira();
+        List<CarteiraVacina> cartVacs = cartDao.ListarVacinas(cart);
+        return cartVacs;        
+    }
+
+    public Boolean RegistrarCarteiraVacina(Carteira cart, Vacina vac) throws SQLException, ClassNotFoundException{
+        DaoCarteira cartDao = new DaoCarteira();
+        Boolean valida = cartDao.RegistrarVacina(cart, vac);
+        return valida;
+    }
 }

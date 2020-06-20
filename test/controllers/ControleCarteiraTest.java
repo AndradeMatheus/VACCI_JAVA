@@ -2,6 +2,8 @@ package controllers;
 
 import vacci.controller.ControleCarteira;
 import vacci.bean.Carteira;
+import vacci.bean.CarteiraVacina;
+import vacci.bean.Vacina;
 import static org.junit.jupiter.api.Assertions.*;
 import java.sql.SQLException;
 import org.junit.jupiter.api.Test;
@@ -57,6 +59,28 @@ class ControleCarteiraTest {
 			assertEquals(2, cartController.BuscarCarteiraPorId(cart).GetCarteiraTipo());
 		else
 			assertTrue(false);
+	}
+
+	@Test
+	void testRegistrarCarteiraVacina() throws ClassNotFoundException, SQLException{
+		ControleCarteira cartController = new ControleCarteira();
+		
+		Carteira cart = new Carteira();
+		cart = cartController.ListarCarteiras().get(cartController.ListarCarteiras().size() -1);
+		Vacina vac = new Vacina();
+		vac.SetId(1);
+
+		assertTrue(cartController.RegistrarCarteiraVacina(cart, vac));
+	}
+
+	@Test
+	void testListarCarteiraVacinas() throws ClassNotFoundException, SQLException{
+		ControleCarteira cartController = new ControleCarteira();
+		List<CarteiraVacina> cartVacs = cartController
+			.ListarCarteiraVacinas(cartController.ListarCarteiras()
+			.get(cartController.ListarCarteiras().size() -1));
+
+		assertNotNull(cartVacs);
 	}
 
 	@Test
