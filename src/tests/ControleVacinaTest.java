@@ -1,4 +1,4 @@
-package controllers;
+package tests;
 
 import vacci.controller.ControleVacina;
 import vacci.bean.Vacina;

@@ -15,6 +15,7 @@ public class Carteira{
 
     public Carteira(int id, int userId, int carteiraTipo){
         this.id = id;
+        this.usuario = new Usuario();
         this.usuario.SetId(userId);
         this.carteira = new TipoCarteira(carteiraTipo);
     }
