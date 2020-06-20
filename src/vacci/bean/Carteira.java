@@ -20,7 +20,9 @@ public class Carteira{
         this.carteira = new TipoCarteira(carteiraTipo);
     }
     
-    public Carteira(){        
+    public Carteira(){
+    	this.usuario = new Usuario();
+    	this.carteira = new TipoCarteira();
     }
 
     public int GetId() {

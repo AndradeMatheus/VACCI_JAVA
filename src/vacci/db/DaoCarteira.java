@@ -22,8 +22,8 @@ public class DaoCarteira {
     
     public Carteira BuscaPorId(int id) throws SQLException{
         try{
-            String sql = "SELECT c.id_carteira, u.nm_usuario, dc.nm_carteira" + 
-            "FROM carteira c JOIN usuario u ON c.id_usuario = u.id_usuario" +
+            String sql = "SELECT c.id_carteira, c.id_usuario, u.nm_usuario, c.tp_carteira, dc.nm_carteira " + 
+            "FROM carteira c JOIN usuario u ON c.id_usuario = u.id_usuario " +
             "JOIN dom_carteira dc ON dc.tp_carteira = c.tp_carteira WHERE c.id_carteira = ? ";
 
             PreparedStatement stmt = this.c.prepareStatement(sql);
@@ -34,8 +34,10 @@ public class DaoCarteira {
             
             while (rs.next()) {
                 ret.SetId(rs.getInt(1));
-                ret.SetUsuarioNome(rs.getString(2));
-                ret.SetCarteiraDescricao(rs.getString(3));
+                ret.SetUsuarioId(rs.getInt(2));
+                ret.SetUsuarioNome(rs.getString(3));
+                ret.SetCarteiraTipo(rs.getInt(4));
+                ret.SetCarteiraDescricao(rs.getString(5));
             }
 
             return ret;
@@ -73,14 +75,17 @@ public class DaoCarteira {
 
     public Boolean Excluir(Carteira cart) throws SQLException{
         try{
-            String sql = "DELETE FROM carteira_vacina WHERE id_carteira = ? ; " + 
-            "DELETE FROM carteira WHERE id_carteira = ?";
+            String sql1 = "DELETE FROM carteira_vacina WHERE id_carteira = ?";
+            String sql2 = "DELETE FROM carteira WHERE id_carteira = ?";
 
-            PreparedStatement stmt = c.prepareStatement(sql);
+            PreparedStatement stmt1 = c.prepareStatement(sql1);
+            PreparedStatement stmt2 = c.prepareStatement(sql2);
 
-            stmt.setInt(1, cart.GetId());
-            stmt.setInt(2, cart.GetId());
-            stmt.execute();
+            stmt1.setInt(1, cart.GetId());
+            stmt2.setInt(1, cart.GetId());
+            
+            stmt1.execute();
+            stmt2.execute();
 
             return true;
 
@@ -96,8 +101,8 @@ public class DaoCarteira {
         try{
             List<Carteira> carts = new ArrayList<Carteira>();
         
-            String sql = "SELECT c.id_carteira, u.nm_usuario, dc.nm_carteira" + 
-                    "FROM carteira c JOIN usuario u ON c.id_usuario = u.id_usuario" +
+            String sql = "SELECT c.id_carteira, c.id_usuario, u.nm_usuario, c.tp_carteira, dc.nm_carteira " + 
+                    "FROM carteira c JOIN usuario u ON c.id_usuario = u.id_usuario " +
                     "JOIN dom_carteira dc ON dc.tp_carteira = c.tp_carteira";
             
             PreparedStatement stmt = this.c.prepareStatement(sql);
@@ -107,8 +112,10 @@ public class DaoCarteira {
                 Carteira cart = new Carteira();
                 
                 cart.SetId(rs.getInt(1));
-                cart.SetUsuarioNome(rs.getString(2));
-                cart.SetCarteiraDescricao(rs.getString(3));
+                cart.SetUsuarioId(rs.getInt(2));
+                cart.SetUsuarioNome(rs.getString(3));
+                cart.SetCarteiraTipo(rs.getInt(4));
+                cart.SetCarteiraDescricao(rs.getString(5));
                 
                 carts.add(cart);
             }
@@ -183,18 +190,14 @@ public class DaoCarteira {
         try{
             String sql = "INSERT INTO carteira_vacina(id_carteira, id_vacina) VALUES (?,?)";
 
-            PreparedStatement stmt = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = c.prepareStatement(sql);
     
             stmt.setInt(1, cart.GetId());
             stmt.setInt(2, vac.GetId());
     
             stmt.executeUpdate();
-            ResultSet rs = stmt.getGeneratedKeys();
 
-            if(rs.next())
-                return true;
-            else
-                return false;
+            return true;
 
         }catch(Exception ex){
             return false;
