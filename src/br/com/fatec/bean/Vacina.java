@@ -12,6 +12,12 @@ public class Vacina{
         this.nome = nome;
         this.carteira = new TipoCarteira(carteiraTipo, carteiraDescricao);
     }
+
+    public Vacina(int id, String nome, int carteiraTipo){
+        this.id = id;
+        this.nome = nome;
+        this.carteira = new TipoCarteira(carteiraTipo);
+    }
     
     public Vacina() {
     }
