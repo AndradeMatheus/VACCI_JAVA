@@ -63,11 +63,13 @@ public class DaoVacina {
     }
 
     public Boolean Excluir(Vacina vac) throws SQLException{
-        String sql = "DELETE FROM vacinas WHERE id_vacina = ?";
+        String sql = "DELETE FROM carteira_vacina WHERE id_vacina = ? ; " +
+                "DELETE FROM vacinas WHERE id_vacina = ?";
 
         PreparedStatement stmt = c.prepareStatement(sql);
 
         stmt.setInt(1, vac.GetId());
+        stmt.setInt(2, vac.GetId());
         
         try {
         	stmt.execute();	

@@ -71,12 +71,16 @@ public class DaoUsuario {
     }
 
     public Boolean Excluir(Usuario user) throws SQLException{
-        String sql = "DELETE FROM usuario WHERE id_usuario = ?";
+        String sql = "DELETE FROM carteira_vacina WHERE id_carteira = (SELECT id_carteira FROM carteira WHERE id_usuario = ?) ; " +
+                "DELETE FROM carteira WHERE id_usuario = ? ; " +
+                "DELETE FROM usuario WHERE id_usuario = ?";
 
         PreparedStatement stmt = c.prepareStatement(sql);
 
         stmt.setInt(1, user.GetId());
-        
+        stmt.setInt(2, user.GetId());
+        stmt.setInt(3, user.GetId());
+
         try {
         	stmt.execute();	
         }catch(Exception ex) {
