@@ -3,11 +3,13 @@ package vacci.bean;
 public class CarteiraVacina {
     
     public int idCarteira;
-    public int idVacina;
+    public Vacina vacina;
 
-    public CarteiraVacina(int idCarteira, int idVacina){
+    public CarteiraVacina(int idCarteira, int vacinaId, String vacinaNome){
         this.idCarteira = idCarteira;
-        this.idVacina = idVacina;
+        this.vacina = new Vacina();
+        this.vacina.SetId(vacinaId);
+        this.vacina.SetNome(vacinaNome);
     }
 
     public CarteiraVacina(){
@@ -22,10 +24,18 @@ public class CarteiraVacina {
     }
 
     public int GetVacinaId(){
-        return this.idVacina;
+        return this.vacina.GetId();
     }
 
     public void SetVacinaId(int id){
-        this.idVacina = id;
+        this.vacina.SetId(id);
+    }
+
+    public String GetVacinaNome(){
+        return this.vacina.GetNome();
+    }
+
+    public void SetVacinaNome(String nome){
+        this.vacina.SetNome(nome);
     }
 }
