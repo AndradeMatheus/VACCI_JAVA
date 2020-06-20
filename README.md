@@ -1,3 +1,4 @@
 TRABALHO FATEC 2020
 
-tesrte do tes
+Este trabalho consiste em apresentarmos o funcionamento do VACCI, um sistema de registro para carteiras de vacinação online.
+
