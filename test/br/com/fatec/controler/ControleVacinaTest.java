@@ -53,13 +53,13 @@ class ControleVacinaTest {
 		Boolean valida = vacController.AlterarVacina(vacModificado, vac);
 
 		if(valida)
-			assertEquals("TESTEALTERACAO", vacController.ListarVacinas().get(vacController.ListarVacinas().size() -1));
+			assertEquals("TESTEALTERACAO", vacController.BuscarVacinaPorId(vac).GetNome());
 		else
 			assertTrue(false);
 	}
 
 	@Test
-	void testExcluir() throws ClassNotFoundException, SQLException{
+	void testExcluirVacina() throws ClassNotFoundException, SQLException{
 		ControleVacina vacController = new ControleVacina();
 		
 		Vacina ultimaVacina = new Vacina();

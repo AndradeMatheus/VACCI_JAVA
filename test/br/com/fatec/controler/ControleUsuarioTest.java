@@ -10,13 +10,13 @@ class ControleUsuarioTest {
 	@Test
 	void testInserirUsuario() throws ClassNotFoundException, SQLException {
 		Usuario user = new Usuario(0,
-				"teste",
-				"login1",
-				"senha",
-				1,
+				"USUARIOTESTE",
+				"LOGINTESTE",
+				"SENHATESTE",
+				3,
 				"",
-				"01234-567",
-				21);
+				"99999-999",
+				99);
 		
 		ControleUsuario userController = new ControleUsuario();
 		Boolean valida = userController.InserirUsuario(user);
@@ -31,7 +31,7 @@ class ControleUsuarioTest {
 	@Test
 	void testValidaLogin() throws ClassNotFoundException, SQLException {
 		ControleUsuario userController = new ControleUsuario();
-		Boolean valida = userController.ValidaLogin("login1", "senha");
+		Boolean valida = userController.ValidaLogin("LOGINTESTE", "SENHATESTE");
 
 		assertTrue(valida);
 	}
@@ -47,14 +47,7 @@ class ControleUsuarioTest {
 	@Test
 	void testBuscarUsuarioPorId() throws ClassNotFoundException, SQLException {
 		ControleUsuario userController = new ControleUsuario();
-		Usuario user = userController.BuscarUsuarioPorId(new Usuario(1,
-			"",
-			"",
-			"",
-			0,
-			"",
-			"",
-			0));
+		Usuario user = userController.BuscarUsuarioPorId(new Usuario(1, "", "", "", 0, "", "", 0));
 
 		Usuario userComparison = userController.ListarUsuarios().get(1);
 
@@ -66,44 +59,31 @@ class ControleUsuarioTest {
 		ControleUsuario userController = new ControleUsuario();
 
 		Usuario user = new Usuario();
-		user.SetId(1);
-		user = userController.BuscarUsuarioPorId(user);
+		user = userController.ListarUsuarios().get(userController.ListarUsuarios().size() -1);
 
 		Usuario userModificado = new Usuario();
-		userModificado.SetNome("validacaoTESTE");
+		userModificado.SetNome("VALIDACAOTESTE");
 
 		Boolean valida = userController.AlterarUsuario(userModificado, user);
 
 		if(valida)
-			assertEquals(userModificado.GetNome(), userController.BuscarUsuarioPorId(user).GetNome());
+			assertEquals("VALIDACAOTESTE", userController.BuscarUsuarioPorId(user).GetNome());
 		else
 			assertTrue(false);
 	}
 
 	@Test
 	void testExcluirUsuario() throws ClassNotFoundException, SQLException{
-		Boolean validaExclusao;
-		Usuario ultimoUsuario = new Usuario();
-
-		Usuario user = new Usuario(0,
-		"TESTEEXCLUSAO",
-		"TESTEEXCLUSAO",
-		"TESTEEXCLUSAO",
-		1,
-		"",
-		"01234-567",
-		21);
-
 		ControleUsuario userController = new ControleUsuario();
-		Boolean validaInsercao = userController.InserirUsuario(user);
+		
+		Usuario ultimoUser = new Usuario();
+		Usuario user = userController.ListarUsuarios().get(userController.ListarUsuarios().size() -1);
 
-		if(validaInsercao){
-			validaExclusao = userController.ExcluirUsuario(user);
-			if(validaExclusao){
-				ultimoUsuario = userController.ListarUsuarios().get(userController.ListarUsuarios().size() -1);
-			}
-		}
+		Boolean validaExclusao = userController.InserirUsuario(user);
+			
+		if(validaExclusao)
+			ultimoUser = userController.ListarUsuarios().get(userController.ListarUsuarios().size() -1);
 
-		assertNotEquals(ultimoUsuario.GetNome(), user.GetNome());
+		assertNotEquals(ultimoUser.GetNome(), user.GetNome());
 	}
 }
