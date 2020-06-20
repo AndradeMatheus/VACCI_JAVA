@@ -20,6 +20,7 @@ public class Vacina{
     }
     
     public Vacina() {
+    	this.carteira = new TipoCarteira();
     }
     
     public int GetId() {
