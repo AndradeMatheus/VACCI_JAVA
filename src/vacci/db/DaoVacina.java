@@ -35,6 +35,7 @@ public class DaoVacina {
                 ret.SetCarteiraDescricao(rs.getString(4));
             }
             
+            rs.close();
             stmt.close();
             c.close();
             
@@ -104,6 +105,7 @@ public class DaoVacina {
         
         rs.close();
         stmt.close();
+        c.close();
         return vacs; 
     }
     
@@ -118,6 +120,7 @@ public class DaoVacina {
         stmt.executeUpdate();
         ResultSet rs = stmt.getGeneratedKeys();
         stmt.close();
+        c.close();
         		
         if (rs.next())
         	return true;

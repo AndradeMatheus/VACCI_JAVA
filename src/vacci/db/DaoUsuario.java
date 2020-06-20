@@ -38,6 +38,7 @@ public class DaoUsuario {
                 ret.SetIdade(rs.getInt(7));
             }
             
+            rs.close();
             stmt.close();
             c.close();
             
@@ -103,6 +104,7 @@ public class DaoUsuario {
 
         ResultSet rs = stmt.executeQuery();
         stmt.close();
+        c.close();
         
         if(rs.next())
         	return true;
@@ -136,6 +138,7 @@ public class DaoUsuario {
         
         rs.close();
         stmt.close();
+        c.close();
         return users; 
     }
     
@@ -155,6 +158,7 @@ public class DaoUsuario {
         stmt.executeUpdate();
         ResultSet rs = stmt.getGeneratedKeys();
         stmt.close();
+        c.close();
         		
         if (rs.next())
         	return true;
