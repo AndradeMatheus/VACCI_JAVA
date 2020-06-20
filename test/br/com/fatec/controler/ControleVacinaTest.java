@@ -8,7 +8,7 @@ import java.util.List;
 
 class ControleVacinaTest {
 
-	@@Test
+	@Test
 	void testInsertVacina() throws ClassNotFoundException, SQLException {
 		Vacina vac = new Vacina(0, "Teste", 3);
 		
