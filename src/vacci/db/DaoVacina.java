@@ -19,27 +19,33 @@ public class DaoVacina {
     }
     
     public Vacina BuscaPorId(int id) throws SQLException{
-        String sql = "SELECT v.id_vacina, v.nm_vacina, v.tp_carteira, dc.nm_carteira " + 
-        		"FROM vacinas v JOIN dom_carteira dc ON v.tp_carteira = dc.tp_carteira WHERE v.id_vacina = ? ";
-        
-        PreparedStatement stmt = this.c.prepareStatement(sql);
+        try{
+            String sql = "SELECT v.id_vacina, v.nm_vacina, v.tp_carteira, dc.nm_carteira " + 
+            "FROM vacinas v JOIN dom_carteira dc ON v.tp_carteira = dc.tp_carteira WHERE v.id_vacina = ? ";
+    
+            PreparedStatement stmt = this.c.prepareStatement(sql);
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
-            
+        
             Vacina ret = new Vacina();
-            
+        
             while (rs.next()) {
                 ret.SetId(rs.getInt(1));
                 ret.SetNome(rs.getString(2));
                 ret.SetCarteiraTipo(rs.getInt(3));
                 ret.SetCarteiraDescricao(rs.getString(4));
             }
-            
-            rs.close();
-            stmt.close();
+
+            return ret;
+
+        }catch(Exception ex){
+            Vacina falha = new Vacina();
+            falha.SetNome("ERRO AO EXECUTAR A AÇÃO");
+            return(falha);
+
+        }finally{
             c.close();
-            
-        return ret;
+        }
     }
     
     public Boolean Alterar(Vacina vacModificado, Vacina vac) throws SQLException{

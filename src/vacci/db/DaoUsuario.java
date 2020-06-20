@@ -19,11 +19,12 @@ public class DaoUsuario {
     }
     
     public Usuario BuscaPorId(int id) throws SQLException{
-        String sql = "SELECT u.id_usuario, u.nm_usuario, u.nm_login, u.nm_senha, "
+        try{
+            String sql = "SELECT u.id_usuario, u.nm_usuario, u.nm_login, u.nm_senha, "
         		+ "dg.nm_genero, u.nm_cep, u.id_idade FROM usuario u JOIN dom_genero dg "
         		+ "ON u.tp_genero = dg.tp_genero WHERE id_usuario = ?";
         
-        PreparedStatement stmt = this.c.prepareStatement(sql);
+            PreparedStatement stmt = this.c.prepareStatement(sql);
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             
@@ -37,12 +38,17 @@ public class DaoUsuario {
                 ret.SetCep(rs.getString(6));
                 ret.SetIdade(rs.getInt(7));
             }
-            
-            rs.close();
-            stmt.close();
+
+            return ret;
+
+        }catch(Exception ex){
+            Usuario falha = new Usuario();
+            falha.SetNome("ERRO AO EXECUTAR A AÇÃO");
+            return(falha);
+
+        }finally{
             c.close();
-            
-        return ret;
+        }
     }
     
     public Boolean Alterar(Usuario userModificado, Usuario user) throws SQLException{

@@ -21,11 +21,12 @@ public class DaoCarteira {
     }
     
     public Carteira BuscaPorId(int id) throws SQLException{
-        String sql = "SELECT c.id_carteira, u.nm_usuario, dc.nm_carteira" + 
-                    "FROM carteira c JOIN usuario u ON c.id_usuario = u.id_usuario" +
-                    "JOIN dom_carteira dc ON dc.tp_carteira = c.tp_carteira WHERE c.id_carteira = ? ";
-        
-        PreparedStatement stmt = this.c.prepareStatement(sql);
+        try{
+            String sql = "SELECT c.id_carteira, u.nm_usuario, dc.nm_carteira" + 
+            "FROM carteira c JOIN usuario u ON c.id_usuario = u.id_usuario" +
+            "JOIN dom_carteira dc ON dc.tp_carteira = c.tp_carteira WHERE c.id_carteira = ? ";
+
+            PreparedStatement stmt = this.c.prepareStatement(sql);
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             
@@ -36,12 +37,17 @@ public class DaoCarteira {
                 ret.SetUsuarioNome(rs.getString(2));
                 ret.SetCarteiraDescricao(rs.getString(3));
             }
-            
-            rs.close();
-            stmt.close();
+
+            return ret;
+
+        }catch(Exception ex){
+            Carteira falha = new Carteira();
+            falha.SetCarteiraDescricao("ERRO AO EXECUTAR A AÇÃO");
+            return(falha);
+
+        }finally{
             c.close();
-            
-        return ret;
+        }
     }
     
     public Boolean Alterar(Carteira cartModificado, Carteira cart) throws SQLException{
