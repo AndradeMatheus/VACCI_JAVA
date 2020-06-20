@@ -72,15 +72,17 @@ public class DaoVacina {
 
     public Boolean Excluir(Vacina vac) throws SQLException{
         try{
-            String sql = "DELETE FROM carteira_vacina WHERE id_vacina = ? ; " +
-                "DELETE FROM vacinas WHERE id_vacina = ?";
+            String sql1 = "DELETE FROM carteira_vacina WHERE id_vacina = ?";
+            String sql2 = "DELETE FROM vacinas WHERE id_vacina = ?";
 
-            PreparedStatement stmt = c.prepareStatement(sql);
+            PreparedStatement stmt1 = c.prepareStatement(sql1);
+            PreparedStatement stmt2 = c.prepareStatement(sql2);
 
-            stmt.setInt(1, vac.GetId());
-            stmt.setInt(2, vac.GetId());
+            stmt1.setInt(1, vac.GetId());
+            stmt2.setInt(1, vac.GetId());
 
-            stmt.execute();
+            stmt1.execute();
+            stmt2.execute();
 
             return true;
             
