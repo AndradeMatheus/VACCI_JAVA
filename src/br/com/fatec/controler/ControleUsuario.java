@@ -41,5 +41,5 @@ public class ControleUsuario {
         DaoUsuario usuDao = new DaoUsuario();
         Boolean valida = usuDao.Inserir(user);
         return valida;
-    }    
+    }
 }

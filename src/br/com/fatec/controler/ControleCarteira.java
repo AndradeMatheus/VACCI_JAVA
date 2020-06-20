@@ -14,24 +14,24 @@ public class ControleCarteira {
         return cart;
     }
     
-    public Boolean AlterarVacina(Carteira cartModificado, Carteira cart) throws SQLException, ClassNotFoundException {
+    public Boolean AlterarCarteira(Carteira cartModificado, Carteira cart) throws SQLException, ClassNotFoundException {
     	DaoCarteira cartDao = new DaoCarteira();
         return cartDao.Alterar(cartModificado, cart);
     }
 	
-    public Boolean ExcluirVacina(Carteira cart) throws SQLException, ClassNotFoundException {
+    public Boolean ExcluirCarteira(Carteira cart) throws SQLException, ClassNotFoundException {
     	DaoCarteira cartDao = new DaoCarteira();
         Boolean valida = cartDao.Excluir(cart);
         return valida;
     }
     
-    public List<Carteira> ListarVacinas() throws SQLException, ClassNotFoundException {
+    public List<Carteira> ListarCarteiras() throws SQLException, ClassNotFoundException {
     	DaoCarteira cartDao = new DaoCarteira();
         List<Carteira> carts = cartDao.Listar();
         return carts;
     }
     
-    public Boolean InserirVacina(Carteira cart) throws SQLException, ClassNotFoundException {
+    public Boolean InserirCarteira(Carteira cart) throws SQLException, ClassNotFoundException {
     	DaoCarteira cartDao = new DaoCarteira();
         Boolean valida = cartDao.Inserir(cart);
         return valida;

@@ -137,7 +137,7 @@ public class DaoUsuario {
     
     public Boolean Inserir(Usuario user) throws SQLException{
         String sql = "INSERT INTO usuario(nm_usuario, nm_login, nm_senha, tp_genero,"
-        		+ " nm_cep, id_dade)" + " values (?,?,?,?,?,?)";
+        		+ " nm_cep, id_idade)" + " values (?,?,?,?,?,?)";
     
         PreparedStatement stmt = c.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 

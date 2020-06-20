@@ -12,6 +12,12 @@ public class Carteira{
         this.usuario = new Usuario();
         this.carteira = new TipoCarteira(carteiraTipo, carteiraDescricao);
     }
+
+    public Carteira(int id, int userId, int carteiraTipo){
+        this.id = id;
+        this.usuario.SetId(userId);
+        this.carteira = new TipoCarteira(carteiraTipo);
+    }
     
     public Carteira(){        
     }
