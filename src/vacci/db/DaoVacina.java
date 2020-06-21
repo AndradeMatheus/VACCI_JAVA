@@ -123,6 +123,36 @@ public class DaoVacina {
             c.close();
         }
     }
+
+    public List<Vacina> ListarPorTipo(int tipo) throws SQLException{
+        try{
+            List<Vacina> vacs = new ArrayList<Vacina>();
+        
+            String sql = "SELECT v.id_vacina, v.nm_vacina " + 
+                    "FROM vacinas v JOIN dom_carteira dc ON v.tp_carteira = dc.tp_carteira " +
+                    "WHERE v.tp_carteira = ?";
+            
+            PreparedStatement stmt = this.c.prepareStatement(sql);
+            stmt.setInt(1, tipo);
+            ResultSet rs = stmt.executeQuery();
+            
+            while (rs.next()) {      
+                Vacina vac = new Vacina();
+                vac.SetId(rs.getInt(1));
+                vac.SetNome(rs.getString(2));
+
+                vacs.add(vac);
+            }
+
+            return vacs; 
+
+        }catch(Exception ex){
+            return new ArrayList<Vacina>();
+
+        }finally{
+            c.close();
+        }
+    }
     
     public Boolean Inserir(Vacina vac) throws SQLException{
         try{

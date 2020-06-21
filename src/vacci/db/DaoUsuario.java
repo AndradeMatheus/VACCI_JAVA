@@ -80,6 +80,39 @@ public class DaoUsuario {
             c.close();
         }
     }
+    
+    public Usuario BuscaPorLogin(String login) throws SQLException{
+        try{
+            String sql = "SELECT u.id_usuario, u.nm_usuario, u.nm_login, u.nm_senha, " +
+            "dg.nm_genero, u.nm_cep, u.id_idade FROM usuario u JOIN dom_genero dg " +
+            "ON u.tp_genero = dg.tp_genero WHERE nm_login = ?";
+    
+            PreparedStatement stmt = this.c.prepareStatement(sql);
+            stmt.setString(1, login);
+            ResultSet rs = stmt.executeQuery();
+            
+            Usuario ret = new Usuario();
+            while (rs.next()) {
+                ret.SetId(rs.getInt(1));
+                ret.SetNome(rs.getString(2));
+                ret.SetLogin(rs.getString(3));
+                ret.SetSenha(rs.getString(4));
+                ret.SetGeneroDescricao(rs.getString(5));
+                ret.SetCep(rs.getString(6));
+                ret.SetIdade(rs.getInt(7));
+            }
+            
+            return ret;
+
+        }catch(Exception ex){
+            Usuario falha = new Usuario();
+            falha.SetNome("ERRO AO EXECUTAR A AÇÃO");
+            return(falha);
+            
+    	}finally {
+            c.close();
+    	}
+    }
 
     public Boolean ValidaLogin(String login, String senha) throws SQLException{
         try{

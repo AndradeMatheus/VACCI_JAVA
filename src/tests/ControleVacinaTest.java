@@ -1,6 +1,7 @@
 package tests;
 
 import vacci.controller.ControleVacina;
+import vacci.bean.Carteira;
 import vacci.bean.Vacina;
 import static org.junit.jupiter.api.Assertions.*;
 import java.sql.SQLException;
@@ -39,6 +40,18 @@ class ControleVacinaTest {
 
 	@Test
 	@Order(3)
+	void testListarVacinasPorTipo() throws ClassNotFoundException, SQLException {
+		Carteira cart = new Carteira();
+		cart.SetCarteiraTipo(1);
+
+		ControleVacina vacController = new ControleVacina();
+		List<Vacina> vacs = vacController.ListarVacinasPorTipo(cart);
+
+		assertNotNull(vacs);
+	}
+
+	@Test
+	@Order(4)
 	void testBuscarVacinaPorId() throws ClassNotFoundException, SQLException {
 		ControleVacina vacController = new ControleVacina();
 		Vacina vac = vacController.BuscarVacinaPorId(new Vacina(1, "", 0));
@@ -49,7 +62,7 @@ class ControleVacinaTest {
 	}
 
 	@Test
-	@Order(4)
+	@Order(5)
 	void testAlterarVacina() throws ClassNotFoundException, SQLException{
 		ControleVacina vacController = new ControleVacina();
 
@@ -68,7 +81,7 @@ class ControleVacinaTest {
 	}
 
 	@Test
-	@Order(5)
+	@Order(6)
 	void testExcluirVacina() throws ClassNotFoundException, SQLException{
 		ControleVacina vacController = new ControleVacina();
 		
