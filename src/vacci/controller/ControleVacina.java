@@ -1,5 +1,6 @@
 package vacci.controller;
 
+import vacci.bean.Carteira;
 import vacci.bean.Vacina;
 import vacci.db.DaoVacina;
 import java.lang.Boolean;
@@ -28,6 +29,12 @@ public class ControleVacina {
     public List<Vacina> ListarVacinas() throws SQLException, ClassNotFoundException {
     	DaoVacina vacDao = new DaoVacina();
         List<Vacina> vacs = vacDao.Listar();
+        return vacs;
+    }
+
+    public List<Vacina> ListarVacinasPorTipo(Carteira cart) throws SQLException, ClassNotFoundException{
+        DaoVacina vacDao = new DaoVacina();
+        List<Vacina> vacs = vacDao.ListarPorTipo(cart.GetCarteiraTipo());
         return vacs;
     }
     

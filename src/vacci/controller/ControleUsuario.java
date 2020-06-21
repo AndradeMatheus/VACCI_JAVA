@@ -13,6 +13,12 @@ public class ControleUsuario {
         user = usuDao.BuscaPorId(user.GetId());
         return user;
     }
+
+    public Usuario BuscarUsuarioPorLogin(String login) throws SQLException, ClassNotFoundException {
+        DaoUsuario usuDao = new DaoUsuario();
+        Usuario user = usuDao.BuscaPorLogin(login);
+        return user;
+    }
     
     public Boolean AlterarUsuario(Usuario userModificado, Usuario user) throws SQLException, ClassNotFoundException {
         DaoUsuario userDao = new DaoUsuario();

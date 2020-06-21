@@ -63,9 +63,21 @@ class ControleUsuarioTest {
 
 		assertEquals(user.GetNome(), userComparison.GetNome());
 	}
-
+	
 	@Test
 	@Order(5)
+	void testBuscarUsuarioPorLogin() throws ClassNotFoundException, SQLException {
+		ControleUsuario userController = new ControleUsuario();
+		Usuario user = userController.BuscarUsuarioPorLogin("admin");
+
+		Usuario userComparison = userController.ListarUsuarios().get(0);
+
+		assertEquals(user.GetNome(), userComparison.GetNome());
+	}
+
+
+	@Test
+	@Order(6)
 	void testAlterarUsuario() throws ClassNotFoundException, SQLException{
 		ControleUsuario userController = new ControleUsuario();
 
@@ -84,7 +96,7 @@ class ControleUsuarioTest {
 	}
 
 	@Test
-	@Order(6)
+	@Order(7)
 	void testExcluirUsuario() throws ClassNotFoundException, SQLException{
 		ControleUsuario userController = new ControleUsuario();
 		
