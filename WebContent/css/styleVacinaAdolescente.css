@@ -15,7 +15,7 @@
       .logo { 
         color: #A65355; 
         transition: 0.3s; 
-      } 
+      }  
       .menu{ 
         float:right; 
       } 
@@ -59,7 +59,8 @@
         padding: 8px 30px; 
         border: 1 solid #A65355; 
         margin: 5px 0; 
-      } 
+      }
+       }  
       .register { 
       color: black; 
       } 
