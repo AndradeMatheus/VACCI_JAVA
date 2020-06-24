@@ -4,8 +4,8 @@
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <meta http-equiv="X-UA-Compatible" content="ie=edge"> 
-    <link rel="stylesheet" href="..\css\styleVacinaAdolescente.css"> 
-    <title>Vacinas Adolescente</title> 
+    <link rel="stylesheet" href="..\css\styleUsuario.css"> 
+    <title>Usuários</title> 
 </head> 
 <body> 
     <header> 
@@ -19,42 +19,29 @@
     </header> 
     <div class="pai"> 
       <div class="filho"> 
-        <div class="titulo">
-        <h1>Adolescente</h1>
-        <img src="http://allftp.allin.com.br/teenager.svg" alt="" width="70px">
-          <h2>Controle de Vacinas</h2>
+        <div class="titulo"> 
+          <h2>Controle de usuários</h2>
         </div> 
         <div>
           <form>
             <table width="450" border="1px" cellspacing="0" cellpadding="0" style="text-align: center;">
               <tr>
                 <td>
-                 "Idade"
-                </td>
-                <td>
-                 Papilomavírus Humano(HPV)
-                </td>
-                <td>
-                 Meningocócica C
+                 "USUARIO"
                 </td>
               </tr>
-              <tr>
+               <tr>
                 <td>
-                  <input type="age" name="Idade">
-                </td>
-                <td>
-                  <input type="dose" name="Dose">
-                </td>
-                <td>
-                  <input type="dose" name="Dose">
+                 "USUARIO2"
                 </td>
               </tr>
             </table> 
           </form>
         </div> 
-  <div>
-    </div>
-<input class="btn" type="submit" value="Salvar Alterações" id="submit">
+<div>
+  <label for="submit"></label> 
+<input class="btn" type="submit" value="Alterar Usuário" id="submit">
+<input class="btn" type="submit" value="Excluir Usuário" id="submit">
 </div> 
 </body> 
 </html> 
