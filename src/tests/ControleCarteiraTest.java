@@ -3,6 +3,7 @@ package tests;
 import vacci.controller.ControleCarteira;
 import vacci.bean.Carteira;
 import vacci.bean.CarteiraVacina;
+import vacci.bean.Usuario;
 import vacci.bean.Vacina;
 import static org.junit.jupiter.api.Assertions.*;
 import java.sql.SQLException;
@@ -50,9 +51,25 @@ public class ControleCarteiraTest {
 
 		assertEquals(cart.GetUsuarioNome(), cartComparison.GetUsuarioNome());
 	}
-
+	
 	@Test
 	@Order(4)
+	void testBuscarCarteiraPorUsuarioTipoCarteira() throws ClassNotFoundException, SQLException {
+		Usuario user = new Usuario();
+		user.SetId(1);
+		ControleCarteira cartController = new ControleCarteira();
+		Carteira cart = cartController.BuscarCarteiraPorUsuarioTipoCarteira(
+				user,
+				new Carteira(0, 0, 3)
+		);
+
+		Carteira cartComparison = cartController.ListarCarteiras().get(0);
+
+		assertEquals(cart.GetUsuarioNome(), cartComparison.GetUsuarioNome());
+	}
+
+	@Test
+	@Order(5)
 	void testAlterarCarteira() throws ClassNotFoundException, SQLException{
 		ControleCarteira cartController = new ControleCarteira();
 
@@ -71,7 +88,7 @@ public class ControleCarteiraTest {
 	}
 
 	@Test
-	@Order(5)
+	@Order(6)
 	void testRegistrarCarteiraVacina() throws ClassNotFoundException, SQLException{
 		ControleCarteira cartController = new ControleCarteira();
 		
@@ -84,7 +101,7 @@ public class ControleCarteiraTest {
 	}
 
 	@Test
-	@Order(6)
+	@Order(7)
 	void testListarCarteiraVacinas() throws ClassNotFoundException, SQLException{
 		ControleCarteira cartController = new ControleCarteira();
 		List<CarteiraVacina> cartVacs = cartController
@@ -95,7 +112,7 @@ public class ControleCarteiraTest {
 	}
 
 	@Test
-	@Order(7)
+	@Order(8)
 	void testExcluirCarteira() throws ClassNotFoundException, SQLException{
 		ControleCarteira cartController = new ControleCarteira();
 		

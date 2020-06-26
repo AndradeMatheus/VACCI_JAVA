@@ -13,6 +13,7 @@ public class CarteiraVacina {
     }
 
     public CarteiraVacina(){
+        this.vacina = new Vacina();
     }
 
     public int GetCarteiraId(){

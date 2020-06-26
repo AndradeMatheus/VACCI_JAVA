@@ -10,21 +10,7 @@
   Carteira cart = (Carteira)session.getAttribute("CarteiraUsuario");
   ControleCarteira cartController = new ControleCarteira();
 
-    String tipoCarteira = "";
-
-    if(cart.GetCarteiraTipo() == 1){
-        tipoCarteira = "crianca";
-    }else if(cart.GetCarteiraTipo() == 2){
-        tipoCarteira = "adolescente";
-    }else if(cart.GetCarteiraTipo() == 3){
-        tipoCarteira = "adulto";
-    }
-
-    int vacina = Integer.parseInt(request.getParameter("quantity"));
-    Boolean validaInsert = cartController.RegistrarCarteiraVacina(
-        cart,
-        new Vacina(vacina, "", 0)
-    );
+    Boolean validaDelete = cartController.ExcluirCarteira(cart);
 
 %>
 <!DOCTYPE html>
@@ -33,8 +19,8 @@
 <title>SISTEMA</title>
 <body>
     <%
-        if (validaInsert) {
-        	String redirect = "http://localhost:8080/VACCI/jsp/ControleVacina_" + tipoCarteira + ".jsp" ;
+        if (validaDelete) {
+        	String redirect = "http://localhost:8080/VACCI/jsp/ControleCarteira.jsp" ;
             response.sendRedirect(redirect);
         } else {
     %>

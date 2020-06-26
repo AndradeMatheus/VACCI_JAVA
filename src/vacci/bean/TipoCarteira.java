@@ -4,6 +4,7 @@ public class TipoCarteira{
     
     public int tipo;
     public String descricao;
+	public int quantidade;
     
     public TipoCarteira(int tipo, String descricao) {
     	this.tipo = tipo;

@@ -5,13 +5,42 @@
 %>
 <%@page import="vacci.bean.Usuario"%>
 <%@page import="vacci.bean.Carteira"%>
+<%@page import="vacci.bean.Vacina"%>
+<%@page import="vacci.bean.CarteiraVacina"%>
 <%@page import="vacci.controller.ControleCarteira"%>
-<% 
+<%@page import="vacci.controller.ControleVacina"%>
+<%
   Usuario user = (Usuario)session.getAttribute("UsuarioLogado");
-  Carteira cart = new Carteira(0, user.GetId(), 1);
-  ControleCarteira carteiraController = new ControleCarteira();
-  carteiraController.InserirCarteira(cart);
+
+  ControleCarteira cartController = new ControleCarteira();
+  ControleVacina vacinaController = new ControleVacina();
+  List<Vacina> vacs = vacinaController.ListarVacinasPorTipo(new Carteira(0, 0, 1));
+  Carteira cart = cartController.BuscarCarteiraPorUsuarioTipoCarteira(user, new Carteira(0, 0, 1));
+
+  if(cart.GetUsuarioId() != 0){
+    session.setAttribute("CarteiraUsuario", cart);
+
+    List<CarteiraVacina> cartVacs = cartController.ListarCarteiraVacinas(cart);
+
+      for (Vacina vac : vacs){
+        vac.SetCarteiraQuantidade(0);
+        for (CarteiraVacina cartVac : cartVacs){
+          if(vac.GetId() == cartVac.GetVacinaId()){
+            vac.SetCarteiraQuantidade(vac.GetCarteiraQuantidade() + 1);
+          }
+        } 
+      } 
+
+  }else{
+    Carteira cartNova = new Carteira(0, user.GetId(), 1);
+    cartController.InserirCarteira(cartNova);
+    cartNova = cartController.BuscarCarteiraPorUsuarioTipoCarteira(user, cart);
+
+    session.setAttribute("CarteiraUsuario", cartNova);
+    response.setIntHeader("Refresh", 1);
+  }
 %>
+
 <html lang="pt-br"> 
 <head>
     <meta charset="UTF-8"> 
@@ -26,7 +55,8 @@
         <h2>Vacci</h2> 
       </div>
       <div class="menu"> 
-          <li><a href="ControleCarteiras.jsp">Login</a></li> 
+          <li><a href="ControleCarteira.jsp"><< RETORNAR</a></li>
+          <li><a href="ControleCarteira_action.jsp"><< EXCLUIR CARTEIRA >></a><li> 
         </ul> 
       </div>
     </header> 
@@ -40,52 +70,32 @@
         <div>
           <form>
             <table width="450" border="1px" cellspacing="0" cellpadding="0" style="text-align: center;">
-            <tbody>
-            <thead><th>Id</th><th>Vacinas</th></thead>
-            <tr>
-            <td>1</td>
-            <td>"BCG + VHB (Ao nascer)"</td>
-            </tr>
-            <tr>
-            <td>2</td>
-            <td> "VHB (1 mês)"</td>
-            </tr>
-            <tr>
-            <td>3</td>
-            <td>"DPT-Hib + SABIN + ROTA (2 meses)"</td>
-            </tr>
-            <tr>
-            <td>4</td>
-            <td>"DPT-Hib + SABIN + VHB (6 meses)"</td>
-            </tr>
-            <tr>
-            <td>5</td>
-            <td>"FA (9 meses)"</td>
-            </tr>
-            <tr>
-            <td>6</td>
-            <td>"Tríplice Viral (12 meses)"</td>
-            </tr>
-            <tr>
-            <td>7</td> 
-            <td>"DPTT + SABIN (15 meses)"</td>
-            </tr>
-            <tr>
-            <td>8</td>  
-            <td>"DPT + Trípiplice Viral (4-6 anos)"</td>
-            </tr>
-            <tr>
-            <td>9</td>  
-            <td>"dT + FA (10-11 anos)"</td>
-            </tr>
-            </tbody>
-            </table> 
+            <thead><th data-field="Id">Id</th>
+            <th data-field="Vacina">Vacina</th>
+            <th data-field="Dose">Doses</th>
+            </thead>
+            <% if (!(vacs.isEmpty())) { %>    
+              <tbody>
+                <% for (Vacina vac : vacs) { %>
+                  <tr>
+                    <td><%=vac.GetId()%></td> 
+                    <td><%=vac.GetNome()%></td>
+                    <td><%=vac.GetCarteiraQuantidade()%></td>
+                  </tr>
+                <% } %>
+              </tbody>
+              <% } %>              
+            </table>
             </form><br>
           <div>
           </div>
+             <form name="FORMREGISTRO"
+                action="ControleVacina_action.jsp"
+                method="post">
             <label for="ids">Números de vacina:</label>
             <input type="number" id="quantity" name="quantity" min="15" max="18"><br>
             <input class="btn" type="submit" value="Salvar alterações" id="submit" style="text-align: center;">
+            </form>
           </div> 
           </body> 
           </html> 

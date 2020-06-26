@@ -2,6 +2,7 @@ package vacci.controller;
 
 import vacci.bean.Carteira;
 import vacci.bean.CarteiraVacina;
+import vacci.bean.Usuario;
 import vacci.bean.Vacina;
 import vacci.db.DaoCarteira;
 import java.lang.Boolean;
@@ -13,6 +14,12 @@ public class ControleCarteira {
     public Carteira BuscarCarteiraPorId(Carteira cart) throws SQLException, ClassNotFoundException {
     	DaoCarteira cartDao = new DaoCarteira();
         cart = cartDao.BuscaPorId(cart.GetId());
+        return cart;
+    }
+
+    public Carteira BuscarCarteiraPorUsuarioTipoCarteira(Usuario user, Carteira cart) throws SQLException, ClassNotFoundException{
+        DaoCarteira cartDao = new DaoCarteira();
+        cart = cartDao.BuscarPorUsuarioTipoCarteira(user.GetId(), cart.GetCarteiraTipo());
         return cart;
     }
     

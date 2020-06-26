@@ -51,6 +51,35 @@ public class DaoCarteira {
             c.close();
         }
     }
+
+    public Carteira BuscarPorUsuarioTipoCarteira(int idUsuario, int tipoCarteira) throws SQLException{
+        try{
+            String sql = "SELECT id_carteira, id_usuario, tp_carteira " +
+            "FROM carteira WHERE id_usuario = ? AND tp_carteira = ? LIMIT 1";
+
+            PreparedStatement stmt = this.c.prepareStatement(sql);
+            stmt.setInt(1, idUsuario);
+            stmt.setInt(2, tipoCarteira);
+            ResultSet rs = stmt.executeQuery();
+
+            Carteira ret = new Carteira();
+
+            while(rs.next()){
+                ret.SetId(rs.getInt(1));
+                ret.SetUsuarioId(rs.getInt(2));
+                ret.SetCarteiraTipo(rs.getInt(3));
+            }
+
+            return ret;
+        }catch(Exception ex){
+            Carteira falha = new Carteira();
+            falha.SetCarteiraDescricao("ERRO AO EXECUTAR A AÇÃO");
+            return(falha);
+
+        }finally{
+            c.close();
+        }
+    }
     
     public Boolean Alterar(Carteira cartModificado, Carteira cart) throws SQLException{
         try{
@@ -164,14 +193,15 @@ public class DaoCarteira {
                 "JOIN vacinas v ON cv.id_vacina = v.id_vacina WHERE id_carteira = ?";
 
             PreparedStatement stmt = this.c.prepareStatement(sql);
+            stmt.setInt(1, cart.GetId());
             ResultSet rs = stmt.executeQuery();
             
             while (rs.next()) {      
                 CarteiraVacina cartVac = new CarteiraVacina();
                 
                 cartVac.SetCarteiraId(rs.getInt(1));
-                cartVac.SetVacinaId(rs.getInt(2));
                 cartVac.SetVacinaNome(rs.getString(3));
+                cartVac.SetVacinaId(rs.getInt(2));
                 
                 cartVacs.add(cartVac);
             }

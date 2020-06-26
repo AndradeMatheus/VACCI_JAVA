@@ -5,12 +5,20 @@ public class Vacina{
     private int id;
     private String nome;
     private TipoCarteira carteira;
-
+    private int quantidade;
     
     public Vacina (int id, String nome, int carteiraTipo, String carteiraDescricao) {
         this.id = id;
         this.nome = nome;
         this.carteira = new TipoCarteira(carteiraTipo, carteiraDescricao);
+        this.quantidade = 0;
+    }
+
+    public Vacina (int id, String nome, int carteiraTipo, String carteiraDescricao, int quantidade) {
+        this.id = id;
+        this.nome = nome;
+        this.carteira = new TipoCarteira(carteiraTipo, carteiraDescricao);
+        this.quantidade = 0;
     }
 
     public Vacina(int id, String nome, int carteiraTipo){
@@ -50,6 +58,14 @@ public class Vacina{
     
     public void SetCarteiraTipo(int carteiraTipo) {
     	this.carteira.tipo = carteiraTipo;
+    }
+
+    public int GetCarteiraQuantidade(){
+        return this.quantidade;
+    }
+
+    public void SetCarteiraQuantidade(int qtd){
+        this.quantidade = qtd;
     }
     
     public String GetCarteiraDescricao() {
