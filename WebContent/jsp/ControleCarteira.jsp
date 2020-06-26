@@ -1,4 +1,10 @@
-<!DOCTYPE html> 
+<%@page
+    contentType="text/html"
+    import="java.util.*"
+    pageEncoding="UTF-8"
+%>
+<%
+%>
 <html lang="pt-br"> 
 <head> 
     <meta charset="UTF-8"> 
@@ -13,8 +19,8 @@
       <!-- Menu -->
       <div class="menu"> 
         <ul> 
-          <li><a href="index.html">Login</a> 
-          <li><a href="ControleUsuario.html">Controle Usuários</a></li> 
+          <li><a href="index.jsp">Login</a> 
+          <li><a href="ControleUsuario.jsp">Controle Usuários</a></li> 
         </ul> 
       </div>
     </header> 
@@ -32,6 +38,7 @@
         <!-- Bola Criança -->
         <div class="conteudo">
           <div class="circulo_1">
+            <a href = "ControleVacina_crianca.jsp">
             <img src="http://allftp.allin.com.br/kid.svg" alt="" width="70px">
           </div>
           <div class="titulo">
@@ -43,6 +50,7 @@
         <!-- Bola Adolecente -->
         <div class="conteudo">
           <div class="circulo_2">
+            <a href = "ControleVacina_adolescente.jsp">
             <img src="http://allftp.allin.com.br/teenager.svg" alt="" width="70px">
           </div>
           <div class="titulo">
@@ -54,6 +62,7 @@
         <!-- Bola Adulto -->
         <div class="conteudo">
           <div class="circulo_3">
+            <a href = "ControleVacina_adulto.jsp">
             <img src="http://allftp.allin.com.br/man.svg" alt="" width="70px">
           </div>
           <div class="titulo">

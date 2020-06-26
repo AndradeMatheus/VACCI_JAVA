@@ -1,4 +1,18 @@
-<!DOCTYPE html> 
+<%@page
+    contentType="text/html"
+    import="java.util.*"
+    pageEncoding="UTF-8"
+%>
+<%@page import="vacci.bean.Usuario"%>
+<%@page import="vacci.bean.Carteira"%>
+<%@page import="vacci.controller.ControleCarteira"%>
+<% 
+  Usuario user = (Usuario)session.getAttribute("UsuarioLogado");
+  Carteira cart = new Carteira(0, user.GetId(), 2);
+  ControleCarteira carteiraController = new ControleCarteira();
+  carteiraController.InserirCarteira(cart);
+%>
+
 <html lang="pt-br"> 
 <head> 
     <meta charset="UTF-8"> 

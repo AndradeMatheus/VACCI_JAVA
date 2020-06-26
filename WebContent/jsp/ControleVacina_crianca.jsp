@@ -1,10 +1,23 @@
-<!DOCTYPE html> 
+<%@page
+    contentType="text/html"
+    import="java.util.*"
+    pageEncoding="UTF-8"
+%>
+<%@page import="vacci.bean.Usuario"%>
+<%@page import="vacci.bean.Carteira"%>
+<%@page import="vacci.controller.ControleCarteira"%>
+<% 
+  Usuario user = (Usuario)session.getAttribute("UsuarioLogado");
+  Carteira cart = new Carteira(0, user.GetId(), 1);
+  ControleCarteira carteiraController = new ControleCarteira();
+  carteiraController.InserirCarteira(cart);
+%>
 <html lang="pt-br"> 
-<head> 
+<head>
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <meta http-equiv="X-UA-Compatible" content="ie=edge"> 
-    <link rel="stylesheet" href="..\css\styleVacinaCriança.css"> 
+    <link rel="stylesheet" href="..\css\styleVacinaCrianca.css"> 
     <title>Vacinas Criança</title> 
 </head> 
 <body> 
