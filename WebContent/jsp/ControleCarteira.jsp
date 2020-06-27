@@ -55,7 +55,7 @@
           </div>
           <div class="titulo">
             <h2>
-              Adolecente
+              Adolescente
             </h2>
           </div>
         </div>
