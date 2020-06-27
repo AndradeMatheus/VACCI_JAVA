@@ -37,7 +37,8 @@
         </div>
         <div class="menu">
             <ul>
-                <li><a href="https://github.com/AndradeMatheus/VACCI_JAVA">Matheus e Mioki</a>
+                <li><a href="ControleCarteira.jsp"><< RETORNAR</a></li>
+                <li><a href="DeleteVacina.jsp"><< DELETAR VACINAS >></a></li>
             </ul>
         </div>
     </header>
@@ -48,14 +49,13 @@
                 <ul>
                     <form
                         name="FORMLOGIN"
-                        action="Registra_action.jsp"
+                        action="RegistraVacina_action.jsp"
                         method="post"
                     >
                         <label for="nome">Nome da vacina</label> 
                         <input type="text" id="nome" name="nome" placeholder="Vacina">
 
-                        
-                         <label>Tipo da carteira</label> <select name="genero">
+                         <label>Tipo da carteira</label> <select name="carteira">
                             <option value="0">Selecionar...</option>
                             <option value="1">Criança</option>
                             <option value="2">Adolescente</option>

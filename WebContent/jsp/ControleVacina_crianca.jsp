@@ -93,7 +93,7 @@
                 action="ControleVacina_action.jsp"
                 method="post">
             <label for="ids">Números de vacina:</label>
-            <input type="number" id="quantity" name="quantity" min="15" max="18"><br>
+            <input type="number" id="quantity" name="quantity" min="0"><br>
             <input class="btn" type="submit" value="Salvar alterações" id="submit" style="text-align: center;">
             </form>
           </div> 

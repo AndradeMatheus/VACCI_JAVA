@@ -21,6 +21,7 @@
         <ul> 
           <li><a href="index.jsp">Login</a> 
           <li><a href="ControleUsuario.jsp">Controle Usuários</a></li> 
+          <li><a href="RegistraVacina.jsp">Registrar Vacinas</a></li> 
         </ul> 
       </div>
     </header> 
